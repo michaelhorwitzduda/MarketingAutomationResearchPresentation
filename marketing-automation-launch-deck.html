@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duda Marketing Automation — Launch Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   Design tokens — Stripe Press / FT register
+   (matches Vibe Campaign exec-brief template)
+   ============================================================ */
+:root {
+  --paper:        #F4F0E6;
+  --paper-2:      #ECE6D8;
+  --paper-3:      #E2DCCC;
+  --ink:          #14161B;
+  --ink-2:        #3D4148;
+  --ink-3:        #6A6F78;
+  --ink-4:        #969BA3;
+  --hairline:     #C9C1AC;
+  --hairline-2:   #D6CFBC;
+  --accent:       #7A1F2B;
+  --accent-soft:  #F0DDD9;
+  --accent-ink:   #5C1620;
+  --affirm:       #2E5D3A;
+  --warn:         #8A5A1E;
+  --negative:     #6A6F78;
+  --serif:        'Source Serif 4', 'Charter', Georgia, serif;
+  --sans:         'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --mono:         'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  overflow: hidden;
+}
+body { font-size: 15px; line-height: 1.55; }
+#root { height: 100vh; }
+
+/* ── Layout ── */
+.stage { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  padding: 72px 80px 80px;
+  overflow-y: auto; overflow-x: hidden;
+}
+.slide::-webkit-scrollbar { width: 6px; }
+.slide::-webkit-scrollbar-thumb { background: var(--hairline); border-radius: 3px; }
+
+/* ── Top chrome ── */
+.chrome-top {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 28px;
+  font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-3); z-index: 50; pointer-events: none;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--hairline-2);
+}
+.chrome-top > * { pointer-events: auto; }
+.chrome-title { display: flex; align-items: center; gap: 14px; }
+.chrome-mark {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--accent); position: relative;
+}
+.chrome-mark::after {
+  content: ""; position: absolute; top: 4px; left: 4px;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--paper);
+}
+.slide-counter { display: flex; align-items: center; gap: 16px; }
+.slide-counter button {
+  background: none; border: none; font: inherit;
+  letter-spacing: inherit; color: var(--ink-3); cursor: pointer;
+  padding: 4px 8px; border-radius: 4px; transition: color 0.12s, background 0.12s;
+}
+.slide-counter button:hover { color: var(--ink); background: var(--paper-2); }
+.slide-counter button:disabled { opacity: 0.3; cursor: default; }
+.slide-counter .nums { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 500; }
+.slide-counter .nums .total { color: var(--ink-4); margin-left: 2px; }
+
+/* ── Bottom chrome ── */
+.chrome-bottom {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  display: flex; justify-content: center;
+  padding: 0 28px 22px; z-index: 50; pointer-events: none;
+}
+.dots {
+  display: flex; gap: 6px;
+  background: rgba(244, 240, 230, 0.9); backdrop-filter: blur(8px);
+  border: 0.5px solid var(--hairline); padding: 8px 12px; border-radius: 999px;
+  pointer-events: auto;
+}
+.dot {
+  width: 26px; height: 18px; background: none; border: none; cursor: pointer;
+  padding: 0; display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 9.5px; color: var(--ink-4);
+  border-radius: 4px; transition: all 0.12s; font-variant-numeric: tabular-nums;
+}
+.dot:hover { color: var(--ink); background: var(--paper-2); }
+.dot.active { color: var(--paper); background: var(--ink); }
+
+/* ── Nav arrows ── */
+.nav-arrow {
+  position: fixed; top: 50%; transform: translateY(-50%); z-index: 60;
+  width: 42px; height: 42px; border-radius: 999px;
+  border: 0.5px solid var(--hairline);
+  background: rgba(244, 240, 230, 0.86); backdrop-filter: blur(8px);
+  color: var(--ink); font-family: var(--mono); font-size: 22px; line-height: 1;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background 0.12s, opacity 0.12s, transform 0.12s;
+}
+.nav-arrow:hover { background: var(--paper-2); }
+.nav-arrow:active { transform: translateY(-50%) scale(0.96); }
+.nav-arrow:disabled { opacity: 0.24; cursor: default; }
+.nav-arrow.prev { left: 18px; }
+.nav-arrow.next { right: 18px; }
+
+/* ── Building blocks ── */
+.eyebrow {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.eyebrow::before {
+  content: ""; display: inline-block; width: 18px; height: 1.5px; background: var(--accent);
+}
+
+.slide-title {
+  font-family: var(--serif); font-weight: 400; font-size: 44px;
+  line-height: 1.1; letter-spacing: -0.018em; color: var(--ink);
+  margin: 16px 0 0; max-width: 30ch; text-wrap: balance;
+}
+.slide-title em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 48; }
+
+.deck-body {
+  font-family: var(--serif); font-size: 17px; line-height: 1.55;
+  color: var(--ink-2); max-width: 62ch; margin-top: 16px;
+}
+.deck-body em { font-style: italic; color: var(--ink); }
+
+.section-eyebrow {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-4); font-weight: 500;
+}
+
+.hairline { border-top: 0.5px solid var(--hairline); }
+
+.slide-footer {
+  margin-top: auto; padding-top: 28px;
+  border-top: 0.5px solid var(--hairline);
+  display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em;
+  color: var(--ink-4); text-transform: uppercase;
+}
+.slide-footer a, .src-link {
+  color: var(--ink-3); text-decoration: none;
+  border-bottom: 0.5px dotted var(--ink-4);
+}
+.slide-footer a:hover, .src-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+.opinion {
+  font-family: var(--serif); font-size: 28px; line-height: 1.25;
+  font-weight: 400; letter-spacing: -0.012em; color: var(--ink);
+  max-width: 26ch; text-wrap: balance; padding-left: 18px;
+  border-left: 2px solid var(--accent);
+}
+
+.big-num {
+  font-family: var(--serif); font-weight: 400; font-size: 64px;
+  line-height: 0.95; letter-spacing: -0.025em; color: var(--ink);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.big-num .unit {
+  font-family: var(--sans); font-size: 0.36em; color: var(--ink-3);
+  font-weight: 400; letter-spacing: 0; margin-left: 6px;
+}
+
+.mid-num {
+  font-family: var(--serif); font-size: 36px; line-height: 1;
+  font-weight: 400; letter-spacing: -0.02em; color: var(--ink);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.card { background: transparent; border: 0.5px solid var(--hairline); border-radius: 4px; padding: 22px; }
+.card.inset { background: var(--paper-2); border: none; }
+.card.accent { background: var(--accent-soft); border: 0.5px solid color-mix(in srgb, var(--accent) 30%, transparent); }
+
+.symbol-check { color: var(--affirm); font-weight: 500; }
+.symbol-no    { color: var(--ink-4); }
+.symbol-partial { color: var(--warn); font-weight: 500; }
+
+.tab-bar { display: flex; gap: 0; border-bottom: 0.5px solid var(--hairline); }
+.tab {
+  font-family: var(--sans); font-size: 12.5px; font-weight: 500;
+  letter-spacing: 0.01em; color: var(--ink-3); background: none;
+  border: none; padding: 12px 18px; cursor: pointer;
+  position: relative; margin-bottom: -0.5px; transition: color 0.12s;
+}
+.tab:hover { color: var(--ink); }
+.tab.active { color: var(--ink); border-bottom: 1.5px solid var(--ink); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.32s ease-out both; }
+
+/* Slider */
+input[type="range"].slider {
+  -webkit-appearance: none; appearance: none; width: 100%;
+  height: 2px; background: var(--hairline); border-radius: 2px; outline: none;
+}
+input[type="range"].slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--ink); cursor: pointer;
+  border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--ink);
+}
+input[type="range"].slider::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--ink);
+  cursor: pointer; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--ink);
+}
+
+.seg { display: inline-flex; border: 0.5px solid var(--hairline); border-radius: 999px; overflow: hidden; background: var(--paper-2); }
+.seg-btn { background: none; border: none; cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); padding: 7px 16px; transition: color 0.12s, background 0.12s; font-variant-numeric: tabular-nums; }
+.seg-btn:hover { color: var(--ink); }
+.seg-btn.active { background: var(--ink); color: var(--paper); }
+
+.disclosure { border-top: 0.5px solid var(--hairline); cursor: pointer; }
+.disclosure-head {
+  padding: 22px 0; display: flex; gap: 24px;
+  align-items: baseline; cursor: pointer; user-select: none;
+}
+.disclosure-num {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-4);
+  letter-spacing: 0.06em; min-width: 32px;
+}
+.disclosure-title {
+  font-family: var(--serif); font-size: 28px; font-weight: 400;
+  letter-spacing: -0.012em; color: var(--ink); flex: 1;
+}
+.disclosure-marker {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-4);
+  transition: transform 0.2s;
+}
+.disclosure.open .disclosure-marker { transform: rotate(45deg); color: var(--accent); }
+.disclosure-body { padding: 0 0 28px 56px; max-width: 76ch; }
+
+/* Quote block */
+.vq {
+  border-left: 2px solid var(--hairline); padding: 4px 0 4px 16px;
+}
+.vq.hot { border-left-color: var(--accent); }
+.vq-text {
+  font-family: var(--serif); font-size: 15.5px; line-height: 1.5;
+  color: var(--ink); font-style: italic;
+}
+.vq-meta {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em;
+  color: var(--ink-4); margin-top: 7px; text-transform: uppercase;
+}
+.vq-meta a { color: var(--ink-3); text-decoration: none; border-bottom: 0.5px dotted var(--ink-4); }
+.vq-meta a:hover { color: var(--accent); }
+
+/* Day-one bar grid */
+.insurance-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 28px;
+}
+.insurance-item {
+  padding: 18px 20px; background: var(--paper-2); border-radius: 4px;
+  border-left: 2px solid var(--accent);
+}
+.insurance-item .label {
+  font-family: var(--sans); font-size: 14px; font-weight: 500;
+  color: var(--ink); margin-bottom: 6px;
+}
+.insurance-item .desc {
+  font-family: var(--serif); font-size: 13.5px; color: var(--ink-2); line-height: 1.45;
+}
+
+/* Recommendation / ask cards */
+.rec-card {
+  padding: 28px 24px; background: var(--paper-2);
+  border-top: 2px solid var(--accent);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.rec-card .card-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent); font-weight: 500;
+}
+.rec-card h3 {
+  font-family: var(--serif); font-size: 24px; font-weight: 400;
+  letter-spacing: -0.012em; color: var(--ink); line-height: 1.2; margin: 0;
+}
+.rec-card p { font-family: var(--serif); font-size: 14.5px; color: var(--ink-2); line-height: 1.5; }
+
+/* ── Phase tags ── */
+.phase-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; font-weight: 500;
+  padding: 4px 11px; border-radius: 999px; margin-bottom: 14px;
+}
+.phase-tag::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+}
+.phase-research { color: var(--ink-3); border: 0.5px solid var(--hairline); background: transparent; }
+.phase-rec { color: var(--paper); background: var(--accent); border: 0.5px solid var(--accent); }
+.phase-rec::before { background: var(--paper); }
+.phase-tbc { color: var(--warn); border: 0.5px dashed color-mix(in srgb, var(--warn) 55%, var(--hairline)); background: transparent; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .slide { padding: 68px 48px 80px; }
+  .slide-title { font-size: 36px; }
+  .opinion { font-size: 22px; }
+  .big-num { font-size: 52px; }
+}
+@media (max-width: 800px) {
+  .slide { padding: 48px 28px 80px; }
+  .slide-title { font-size: 30px; }
+}
+@media (max-width: 760px) {
+  html, body, #root, .stage { width: 100%; min-width: 0; overflow: hidden; }
+  body { font-size: 15px; line-height: 1.5; }
+  .stage { height: 100dvh; }
+  .slide { position: absolute; inset: 0; padding: 104px 20px 96px; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  .chrome-top { align-items: flex-start; gap: 10px; padding: 14px 14px 10px; font-size: 9px; }
+  .chrome-title { gap: 10px; min-width: 0; max-width: 42vw; line-height: 1.35; }
+  .slide-counter { gap: 4px; justify-content: flex-end; flex-wrap: wrap; max-width: 55vw; }
+  .chrome-bottom { padding: 0 8px 14px; }
+  .dots { max-width: calc(100vw - 24px); overflow-x: auto; gap: 4px; padding: 8px 10px; scrollbar-width: none; }
+  .dot { flex: 0 0 34px; width: 34px; height: 28px; font-size: 10px; }
+  .nav-arrow { top: auto; bottom: 58px; width: 38px; height: 38px; font-size: 20px; }
+  .nav-arrow.prev { left: 12px; }
+  .nav-arrow.next { right: 12px; }
+  .slide-title { font-size: clamp(32px, 10vw, 44px); line-height: 1.05; max-width: 100%; }
+  .deck-body { font-size: 17px; max-width: 100%; }
+  .opinion { font-size: 23px; max-width: 100%; }
+  .big-num { font-size: clamp(42px, 14vw, 58px); }
+  .card { padding: 18px; }
+  .slide-footer { flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 20px; margin-top: 28px; font-size: 9.5px; }
+  .tab-bar { overflow-x: auto; scrollbar-width: none; }
+  .tab { flex: 0 0 auto; padding: 11px 14px; }
+  .disclosure-title { font-size: 21px; }
+  .disclosure-body { padding: 0 0 22px 0; }
+  .slide [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+  .slide [style*="display: grid"] { gap: 18px !important; }
+  .slide [style*="min-width"] { min-width: 0 !important; }
+  .slide [style*="max-width"] { max-width: 100% !important; }
+  .insurance-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<script>
+
+window.DECK_DATA = {
+
+  /* ── Evidence base (all first-party corpora, mined 2026-07) ──
+     Links open the NotebookLM notebooks — chat with the raw data. */
+  SOURCES: [
+    { n: "3,753", label: "website chat sessions", link: "https://notebooklm.google.com/notebook/f2d746cc-1e6a-419b-a5d3-8e879962dbcf" },
+    { n: "4,345", label: "FB posts + comments", link: "https://notebooklm.google.com/notebook/743906ad-c141-4f8d-8a8d-3360dee0e81f" },
+    { n: "831", label: "G2 reviews of Duda", link: "https://notebooklm.google.com/notebook/13cbefdb-8794-4df7-92f7-9865710356cd" },
+    { n: "156", label: "idea-board votes", link: "https://ideas.duda.co/forums/930658-duda-idea-board/suggestions/41937100-email-text-messaging-marketing-app" }
+  ],
+
+  /* ── Customer website scrape (1,567 agency/studio sites, Jul 2026) ── */
+  SCRAPE: {
+    notebook: "https://notebooklm.google.com/notebook/b405953e-5b37-4f5c-ac6e-4d45e2ca8d72",
+    n: 1567,
+    services: [
+      { s: "Websites", pct: 88.9 },
+      { s: "SEO", pct: 65.3 },
+      { s: "Paid advertising", pct: 57.9 },
+      { s: "Social media", pct: 57.8 },
+      { s: "Marketing automation / email", pct: 32.9, hl: true },
+      { s: "Local listings", pct: 23.7 },
+      { s: "Reviews / reputation", pct: 17.2 }
+    ],
+    positioning: [
+      { p: "Full-service agency", pct: 43.5 },
+      { p: "Lead-generation agency", pct: 41.8 },
+      { p: "Paid-media specialist", pct: 22.7 },
+      { p: "SEO specialist", pct: 17.6 },
+      { p: "Creative / branding agency", pct: 11.7 },
+      { p: "Website shop", pct: 10.4 }
+    ],
+    maTotal: 516, maAgencies: 447, maStudios: 69,
+    capabilities: [
+      { c: "Email campaigns / newsletters", n: 347, pct: 67.2 },
+      { c: "Drip campaigns / lead nurturing", n: 196, pct: 38.0 },
+      { c: "Lead capture / speed-to-lead", n: 171, pct: 33.1 },
+      { c: "CRM implementation", n: 163, pct: 31.6 },
+      { c: "Automated review generation", n: 118, pct: 22.9 },
+      { c: "Chatbots / AI assistants", n: 96, pct: 18.6 },
+      { c: "Booking / appointment scheduling", n: 95, pct: 18.4 },
+      { c: "SMS marketing", n: 83, pct: 16.1 },
+      { c: "Loyalty / retention automation", n: 63, pct: 12.2 },
+      { c: "Ecommerce automation", n: 44, pct: 8.5 }
+    ],
+    byPlan: [
+      { plan: "White Label", pct: 39.4 },
+      { plan: "SMA Agency", pct: 29.3 },
+      { plan: "SMA Team", pct: 25.4 }
+    ],
+    byGeo: [
+      { region: "LATAM", n: 59, sellers: 25, pct: 42.4 },
+      { region: "North America", n: 853, sellers: 314, pct: 36.8 },
+      { region: "APAC", n: 107, sellers: 37, pct: 34.6 },
+      { region: "EMEA", n: 215, sellers: 39, pct: 18.1 }
+    ],
+    bySites: [
+      { band: "1–4", n: 422, pct: 36.0 },
+      { band: "5–9", n: 259, pct: 29.7 },
+      { band: "10–24", n: 270, pct: 35.9 },
+      { band: "25–49", n: 171, pct: 32.2 },
+      { band: "50+", n: 124, pct: 29.0 }
+    ],
+    recurringPct: 86.5
+  },
+
+  JOURNEYCARE: {
+    name: "JourneyCARE",
+    url: "https://www.journeycare.app/",
+    notes: "https://docs.google.com/document/d/1ksRgQJA_GPmqVFNFFQH-NhKPAOOoOUJnq-JPw5hTxtc/edit",
+    recording: "https://drive.google.com/file/d/1hXI8yonacqvZYSlU91zaUvSD5xNEg234/view",
+    what: "A white-labeled GoHighLevel platform for membership associations — which sells Duda as its premium website option. The stack this deck describes, already productized by a customer. (journeycare.app itself runs on Duda.)",
+    how: "Per client: a Duda contact-form template with JourneyCARE (GHL) embed code; brand colors, fonts and logos assigned per association site. Marketing automation, contacts, events and payments live on the GHL side.",
+    pain: "Interview (Jun 24, 2026, Jaime Markle): brand assets are duplicated by hand between GHL brand boards and Duda for every client — no sync. Invoicing, contract management and review collection still live in separate systems. Chose Duda over Squarespace/Wix for user-friendliness."
+  },
+
+  /* Salespeak monthly trend — high-intent GHL sessions */
+  GHL_TREND: [
+    { m: "Dec 25", v: 1 }, { m: "Jan 26", v: 2 }, { m: "Feb 26", v: 2 },
+    { m: "Mar 26", v: 6 }, { m: "Apr 26", v: 1 }, { m: "May 26", v: 2 }
+  ],
+
+  CHAT_TOPICS: [
+    { t: "CRM in / with Duda",            n: 18 },
+    { t: "Email marketing / newsletters", n: 15 },
+    { t: "GoHighLevel stack questions",   n: 14 },
+    { t: "SMS reminders & alerts",        n: 6 },
+    { t: "Funnels / abandoned cart",      n: 5 }
+  ],
+
+  FB_TOOLS: [
+    { t: "GoHighLevel", n: 17, note: "11 threads" },
+    { t: "Zapier (form glue)", n: 14, note: "threads" },
+    { t: "Wix", n: 19, note: "as the built-in benchmark" },
+    { t: "Mailchimp / Constant Contact", n: 6, note: "" },
+    { t: "ActiveCampaign · HubSpot · Klaviyo · Brevo", n: 0, note: "zero mentions" }
+  ],
+
+  /* ── Category A: dedicated MA platforms with sub-accounts ── */
+  MA_PLATFORMS: [
+    {
+      id: "ghl", name: "GoHighLevel", monogram: "G", color: "#2E5D8A",
+      posture: "The incumbent in our own community. Agencies pair Duda (site quality) with GHL (email, SMS, CRM, reviews, billing). Its weak website builder is the only thing keeping them on Duda.",
+      model: "Flat fee · unlimited contacts · usage-billed sends",
+      tiers: [
+        { name: "Starter", detail: "3 sub-accounts", price: "$97/mo" },
+        { name: "Unlimited", detail: "unlimited sub-accounts · white-label", price: "$297/mo" },
+        { name: "Agency Pro / SaaS", detail: "resell as your own SaaS", price: "$497/mo" }
+      ],
+      hidden: "Email/SMS are usage-billed on top ($0.01/email overage). Users with 30k+ subscribers report real costs of $400–600/mo. G2 list price verified first-party: 4.6★ · 643 reviews.",
+      flaw: "Executes the right agency model badly: “not truly white label” (LeadConnector lock-in), billing surprises, support that strains past 300 sub-accounts, steep learning curve.",
+      third: {
+        label: "Third-party corroboration · thatmarketingbuddy.com",
+        link: "https://thatmarketingbuddy.com/software/gohighlevel",
+        body: "Independent aggregator profile confirms the tiers ($97 / $297 / $497) and the $0.01/email overage economics, and lists the same cons: steep learning curve, hidden email costs, clunky page builder, deliverability drops, inconsistent support. Its ratings snapshot (G2 4.3 · 400) runs stale against our first-party verified 4.6 · 643 — we keep ours."
+      },
+      quotes: [
+        { q: "Not truly white label software, this isn’t nice after we spend money on it.", meta: "G2 · 0/5 · Marketing agency · Apr 2025 · verified", hot: true },
+        { q: "Everything is connected through their white label ‘LeadConnector’ solution that does not support outside providers. Additionally, the platform is full of ads… Everything is built on forcing you to upsell.", meta: "G2 · 0/5 · Small-Business · May 2025 · verified", hot: false },
+        { q: "The response time is very long… This can be detrimental when you have 300+ sub accounts.", meta: "G2 · 2/5 · Small-Business · Jan 2026 · verified", hot: false },
+        { q: "I love GHL for all things but the website builder. Their final html structure is terrible… They have a long way to go to compete with Duda on website design.", meta: "Duda FB group · Jeremy Shick · 2024", hot: true }
+      ]
+    },
+    {
+      id: "ac", name: "ActiveCampaign", monogram: "A", color: "#356CA5",
+      posture: "The strongest email-automation product with a real agency reseller program — but nearly invisible in Duda’s own community (zero FB mentions, 2 chat sessions). A feature benchmark more than a conquest target.",
+      model: "Per-contact · scales with list size",
+      tiers: [
+        { name: "Starter", detail: "base · 1k contacts", price: "$15/mo" },
+        { name: "Plus / Pro", detail: "base tiers", price: "$37 / $79" },
+        { name: "At 5k contacts", detail: "contact-scaled, the agency-relevant figure", price: "$79–149/mo" },
+        { name: "Enterprise", detail: "white-label lives here only", price: "$145+" }
+      ],
+      hidden: "Live tier pricing sits behind an interactive slider (not statically verifiable — treat exact 5k figure as TBC). Reseller discounts of 25–55% are vendor-claimed, unverified. G2 ~14.5k reviews.",
+      flaw: "Per-contact pricing multiplies across client sub-accounts; white-label is Enterprise-only; users report aggressive price scaling and frequent bugs.",
+      third: {
+        label: "Third-party corroboration · thatmarketingbuddy.com",
+        link: "https://thatmarketingbuddy.com/software/activecampaign",
+        body: "Corroborates the product strength — 950+ automation recipes, cross-channel email/SMS/WhatsApp, predictive sending, built-in CRM (G2 4.5 · ~14k) — and the cons: aggressive pricing scaling, frequent bugs, limited landing-page customization, performance issues on large datasets."
+      },
+      quotes: [
+        { q: "CRM and email marketing automation are most important… I’d like to trigger a thank-you email after each order… set up a follow-up sequence.", meta: "duda.co chat · Mar 2026 · high intent — the à-la-carte stack quoted back: WL plan + $9/mo/site connector + separate AC subscription", hot: true },
+        { q: "Aggressive pricing scaling; frequent bugs; performance issues on large datasets.", meta: "Aggregated cons · thatmarketingbuddy cross-check · corroborates our G2 profile", hot: false }
+      ]
+    },
+    {
+      id: "brevo", name: "Brevo", monogram: "B", color: "#0B996E",
+      posture: "The budget ESP that does have a sub-account console — centralized dashboards, per-client permissions, unified billing, isolated client environments — but only on Enterprise, at custom pricing. On every self-serve tier an agency is running disconnected standalone accounts. And like the other ESPs, Brevo is effectively invisible in Duda’s own channels (zero FB mentions, zero user chat asks).",
+      model: "Send-volume metered · unlimited contacts",
+      tiers: [
+        { name: "Starter", detail: "5k emails/mo · no automation", price: "$9/mo" },
+        { name: "Standard", detail: "5k emails/mo · automation + A/B", price: "$18/mo" },
+        { name: "Professional", detail: "150k emails/mo", price: "$499/mo" },
+        { name: "Enterprise", detail: "sub-accounts live here only", price: "custom" }
+      ],
+      hidden: "The $18 → $499 jump between Standard and Professional is a cliff, and sub-account management — the agency feature — is gated behind a custom Enterprise contract. Claimed 97–98% deliverability. G2 4.5 · ~2,200 reviews.",
+      flaw: "Cheap until you’re an agency: the multi-client console that makes Brevo comparable to GHL requires Enterprise, erasing the price advantage that is its entire pitch.",
+      third: {
+        label: "Third-party corroboration · thatmarketingbuddy.com",
+        link: "https://thatmarketingbuddy.com/software/brevo",
+        body: "Corroborates the tiering (Free 300 emails/day · Starter $9 · Standard $18 · Professional $499) and the agency angle: multi-account management with white-label options. Credits the 97–98% deliverability claim — a genuine strength worth respecting in email-heavy deals."
+      },
+      quotes: [
+        { q: "Multi-account management + white-label options for managing client campaigns — but Pro jumps to $499/mo and sub-accounts require Enterprise.", meta: "Aggregated profile · brevo.com/features/sub-account-management + pricing · no first-party user quote pulled", hot: false }
+      ]
+    }
+  ],
+
+  MA_OTHERS: [
+    { name: "HubSpot", at5k: "$1,140/mo + $3k onboarding", note: "Per-portal charges; 2024 repricing churn; near-zero presence in Duda channels" },
+    { name: "Mailchimp", at5k: "$75/mo", note: "Charges for unsubscribed contacts; separate logins per client" },
+    { name: "Klaviyo", at5k: "$100/mo", note: "E-commerce native; overkill for service SMBs" }
+  ],
+
+  /* ── Category B: website builders with add-ons ── */
+  BUILDERS: [
+    {
+      id: "wix", name: "Wix", monogram: "W", color: "#8A5A1E",
+      posture: "The named benchmark in our community — “Wix incorporates it into its ecosystem.” For a single site, Wix already bundles email campaigns, IF/ELSE automations, and a workspace CRM.",
+      model: "Two plans per site (regular, non-promo prices): Business site plan $39/mo (booking, ecomm, ‘standard marketing suite’) + a separate email-marketing plan — Essentials $10/mo (500 emails) · Core $24/mo (5,000) · Advanced $49/mo (1M). Free tier: 200 emails/mo.",
+      limit: "The Studio workspace is a genuine cross-client management console — sites dashboard, workspace CRM for the agency’s own clients — and email templates can be copied between sites. The boundary is operational: campaigns are created and sent per site, from that site’s contact list, on that site’s separately-billed email plan, and end-customer contacts and automations don’t cross sites. No SMS (finding by absence across G2 pulls), and no white-label — the platform stays Wix-branded in front of the agency’s clients.",
+      quotes: [
+        { q: "Their email marketing is okay but not as good as Mailchimp… their CRM is better than nothing, but not as good as Pipedrive… You’d be better off getting specialized apps.", meta: "G2 · Wix review · Mar 2025 · verified", hot: false },
+        { q: "Anyone know why Duda doesn’t have a built in email marketing feature like other platforms have? Wix incorporates it into its ecosystem, but Duda is just completely void of such a basic feature.", meta: "Duda FB Pros · Shaun Freeman · Aug 2025 — the thread that names our gap", hot: true }
+      ]
+    },
+    {
+      id: "sqsp", name: "Squarespace", monogram: "S", color: "#3D4148",
+      posture: "Email Campaigns is a paid add-on (~$10+/mo) bolted onto the site plan. Sold as all-in-one convenience, never as depth.",
+      model: "Send-metered add-on per site",
+      limit: "Single-path automation only (no branching), no CRM, no SMS — all confirmed by absence across review pulls. No agency multi-client architecture at all; support is a documented weakness (three-week email queues).",
+      quotes: [
+        { q: "Built-in analytics, email marketing, ecommerce, scheduling… make it feel like an all-in-one solution.", meta: "G2 · 4.5/5 · Dec 2025 · verified — convenience, not capability", hot: false }
+      ]
+    },
+    {
+      id: "ele", name: "Elementor", monogram: "E", color: "#6A6F78",
+      posture: "A capture/landing-page layer that offloads all automation to external ESPs and plugins.",
+      model: "$59–399/yr license + a separate ESP subscription",
+      limit: "“Automation” in Elementor reviews means design workflow, not marketing. No native email engine, CRM, or SMS. Agencies inherit WordPress plugin-conflict maintenance — the exact fatigue driving G2 switchers to Duda.",
+      quotes: [
+        { q: "Even with Elementor or other visual builders, you’re still dealing with plugin conflicts, security overhead, and poor Core Web Vitals.", meta: "G2 review of Duda · Jul 2025 · a switcher explains why", hot: true }
+      ]
+    }
+  ],
+
+  /* ── Capability matrix ── */
+  MATRIX: [
+    { name: "Email campaigns",            duda: "yes", ghl: "yes", ac: "yes", wix: "yes", wixN: "sold as a separate per-site email plan", sqsp: "partial", sqspN: "add-on", ele: "no", eleN: "external ESP" },
+    { name: "Automation flows",           duda: "yes", ghl: "yes", ac: "yes", wix: "yes", wixN: "IF/ELSE branching; runs per site", sqsp: "partial", sqspN: "single-path", ele: "no" },
+    { name: "CRM / contact database",     duda: "yes", ghl: "yes", ac: "yes", wix: "partial", wixN: "agency’s own clients only", sqsp: "no", ele: "no" },
+    { name: "SMS",                        duda: "yes", ghl: "yes", ac: "partial", acN: "credit add-on", wix: "no", sqsp: "no", ele: "no" },
+    { name: "Native AI email creation and automation", duda: "yes", ghl: "partial", ghlN: "AI add-ons, usage-billed", ac: "partial", acN: "AI automation builder", wix: "partial", wixN: "AI site creation + AI email copy; no platform-wide AI management", sqsp: "partial", sqspN: "content AI", ele: "partial", eleN: "AI via plugins" },
+    { name: "Professional website builder", duda: "yes", ghl: "partial", ghlN: "“terrible html structure”", ac: "no", wix: "yes", sqsp: "yes", ele: "yes" },
+    { name: "Booking + forms + ecomm on the same canvas", duda: "yes", ghl: "partial", ac: "no", wix: "yes", wixN: "single site only", sqsp: "partial", ele: "partial", eleN: "plugins" },
+    { name: "Client permissions / sub-accounts", duda: "yes", ghl: "yes", ac: "partial", acN: "reseller program", wix: "partial", wixN: "per-site silos", sqsp: "no", ele: "partial", eleN: "WP multisite" },
+    { name: "Full white-label",           duda: "yes", ghl: "yes", ac: "partial", acN: "Enterprise only", wix: "no", sqsp: "no", ele: "no" },
+    { name: "Cross-client dashboard", duda: "yes", ghl: "yes", ac: "yes", wix: "yes", wixN: "Studio workspace: cross-site management, agency CRM, copyable email templates", sqsp: "no", ele: "no" }
+  ],
+
+  /* ── Pricing model (interactive) ──
+     perSite: [cost at ~1k contacts/client, cost at ~5k contacts/client] */
+  PRICING: {
+    dudaPerSite: 8,
+    vendors: [
+      { id: "duda", name: "Duda", color: "#7A1F2B", type: "persite", perSite: [8, 8], note: "Part of the Business plan · flat per site" },
+      { id: "ghl",  name: "GoHighLevel", color: "#2E5D8A", type: "flat", flat: 297, note: "+ usage-billed email/SMS (real cost $400–600 at 30k+ subs)" },
+      { id: "ac",   name: "ActiveCampaign", color: "#356CA5", type: "persite", perSite: [15, 79], note: "per-contact, per client account" },
+      { id: "brevo", name: "Brevo", color: "#0B996E", type: "persite", perSite: [18, 18], note: "Standard $18/site = disconnected standalone accounts; sub-accounts are Enterprise-only (custom pricing)" },
+      { id: "wix",  name: "Wix email plan", color: "#969BA3", type: "persite", perSite: [24, 49], note: "Core $24 / Advanced $49 per site, on top of the $39 Business site plan" }
+    ]
+  },
+
+  /* ── Use cases (ranked, cross-corpus) ── */
+  USE_CASES: [
+    {
+      rank: "01", name: "Lead capture → automated follow-up", scope: "Forms + Flows + Email + CRM",
+      ev: "The #1 job across all three corpora. Zapier-as-form-glue appears in 14 FB threads — and broke for ~6 agencies at once in Feb 2026 (Advanced Forms shipped without webhooks). Chat users ask to “automate lead capture and follow-up” verbatim.",
+      quote: { q: "Because the values aren’t passed you can’t map them to create an autoresponder or CRM record with the correct data.", meta: "Duda FB Pros · Callum Wells · Feb 2026 — the fragility we replace" }
+    },
+    {
+      rank: "02", name: "Email campaigns & newsletters", scope: "Email",
+      ev: "~15 chat sessions (“is there a newsletter module?”, “do ya’ll have a newsletter system?”), the unprompted FB thread naming Wix, 130 idea-board votes, and 8+ G2 reviews since 2019 asking for it natively.",
+      quote: { q: "I really wish we could run email marketing via Duda.", meta: "G2 review of Duda · 4★ Agency · Sep 2023 · verified" }
+    },
+    {
+      rank: "03", name: "Booking confirmations + SMS reminders", scope: "SMS + Email + native Booking",
+      ev: "6 chat sessions ask for SMS, one explicitly “without using a third party app.” The community frames it as table stakes: no reminders → no-shows → agency’s white-label reputation.",
+      quote: { q: "A booking platform without SMS and email confirmations and reminders to prevent DNA is not a booking platform… especially where it’s whitelabel because that affects our reputation.", meta: "Duda FB Pros · Raj Zavery · Dec 2025" }
+    },
+    {
+      rank: "04", name: "Review-request automation", scope: "Flows + SMS + Email",
+      ev: "Agencies run this on GHL today for local-SMB clients (automated post-appointment follow-ups). Asked for inside Duda booking threads (“can you send post-appointment SMS to request a review?”).",
+      quote: { q: "I’m using HighLevel and I’ve created some workflows to make getting reviews easier… the last two reviews I received from it, so I know it is effective.", meta: "Duda Support FB · Eva Pettifor · Dec 2025" }
+    },
+    {
+      rank: "05", name: "Client contact database (CRM)", scope: "CRM",
+      ev: "~18 chat sessions; on G2 the missing CRM is the single most-named “only thing I’d change” among agency fans (2020–2025).",
+      quote: { q: "The only thing I would change with Duda is adding a CRM system, but I know that is a huge endeavor.", meta: "G2 review of Duda · 5★ Agency (runs GHL alongside) · Dec 2023 · verified" }
+    },
+    {
+      rank: "06", name: "E-commerce follow-ups", scope: "Flows + Email + native eComm",
+      ev: "“Are abandoned cart e-mails not released yet?” asked verbatim in chat (Dec 2025); an AC-integration prospect walked through order-sync → thank-you → follow-up sequence; Duda’s own community manager recommends Omnisend for exactly this.",
+      quote: { q: "I’d like to trigger a thank-you email after each order… and set up a follow-up sequence after the thank-you email.", meta: "duda.co chat · Mar 2026 · high intent" }
+    }
+  ],
+
+  /* ── Risks / day-one bar ── */
+  RISKS: [
+    {
+      title: "Trust deficit on native features",
+      body: "“Duda always has let me down with new features and then it gets abandoned along the way, like Memberships.” (Duda Support FB, Jun 2026).",
+      rec: "Launch with full visibility into the roadmap and a complete solution for a specific job to be done. Ship one use case end-to-end rather than a thin v1 across many — completeness earns trust, breadth without depth confirms the fear."
+    },
+    {
+      title: "All-in-one skepticism",
+      body: "“A lot of these all-inclusive tools don’t really do everything well.” (FB Pros). Agencies accept the two-tool Duda+GHL stack because each side is best-of-breed.",
+      rec: "Make modest claims. Position as “the marketing layer that already lives inside the platform you trust for sites” — not “everything in one place.” Let the integration depth speak for itself."
+    },
+    {
+      title: "No willingness to pay",
+      body: "Agencies already pay $0 for Duda’s platform to handle email — they either bolt on a free/cheap ESP or run GHL for everything. An $8/site add-on needs to earn its slot.",
+      rec: "Freemium layer included in every site to drive adoption — basic email sends free, paid tiers for automation, SMS and volume. Adoption first, monetization follows."
+    }
+  ],
+
+  THE_ASK: [
+    { num: "01", title: "Confirm day-one scope against the validated bar",
+      body: "Email, automation flows, CRM, and SMS — wired into forms, booking, ecomm, and client permissions from the first release. The community’s acceptance tests (booking reminders, form → CRM → autoresponder without Zapier, complete white-label) are the launch checklist.",
+      owner: "Product leadership" },
+    { num: "02", title: "Approve the messaging hierarchy",
+      body: "Against GHL and the ESPs, lead with integration: everything just works together — forms, booking, ecomm and email/SMS flows on the same canvas as the site, no Zapier, no sync breakage. Pricing is the second beat: included in the Business plan from $8/site, and never pay for contacts you can’t email. Against Wix, it’s the classic Duda story: you own your customer — full white-label, client permissions, your brand in front of your clients, not ours.",
+      owner: "Marketing + Finance" },
+    { num: "03", title: "Approve the two-audience campaign sequence",
+      body: "Audience one: agencies looking for a quick, inexpensive way to add email marketing to the client sites they already run — the $8/site low-friction entry, no new platform to learn. Audience two: the displacement move against GHL — the documented Duda+GHL stackers who told us the builder is the only thing keeping them here. Seed both from the FB-group agencies already responding to research outreach — the design-partner shortlist.",
+      owner: "Growth / Marketing" }
+  ]
+};
+
+</script>
+<script type="text/babel">
+
+const { useState, useEffect, useRef, useCallback } = React;
+const D = window.DECK_DATA;
+
+/* ============================================================
+   Shared components
+   ============================================================ */
+
+function Eyebrow({ children }) {
+  return <div className="eyebrow">{children}</div>;
+}
+
+function PhaseBadge({ kind }) {
+  var map = { research: "Research finding", rec: "Recommendation", tbc: "To be confirmed" };
+  return <span className={"phase-tag phase-" + kind}>{map[kind] || map.research}</span>;
+}
+
+function SlideTitle({ children, style }) {
+  return <h1 className="slide-title" style={style}>{children}</h1>;
+}
+
+function SlideHeader({ eyebrow, title, lede, phase, children }) {
+  return (
+    <div>
+      {phase && <div><PhaseBadge kind={phase} /></div>}
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <SlideTitle>{title}</SlideTitle>
+      {lede && <p className="deck-body">{lede}</p>}
+      {children}
+    </div>
+  );
+}
+
+function Disclosure({ num, title, defaultOpen = false, children }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className={"disclosure" + (open ? " open" : "")}>
+      <div className="disclosure-head" onClick={function() { setOpen(!open); }}>
+        <div className="disclosure-num">{num}</div>
+        <div className="disclosure-title">{title}</div>
+        <div className="disclosure-marker">{open ? "—" : "+"}</div>
+      </div>
+      {open && <div className="disclosure-body fade-up">{children}</div>}
+    </div>
+  );
+}
+
+function BigNum({ children, unit, color, size }) {
+  var cls = size === "mid" ? "mid-num" : "big-num";
+  return (
+    <span className={cls} style={{ color: color || "var(--ink)" }}>
+      {children}{unit && <span className="unit">{unit}</span>}
+    </span>
+  );
+}
+
+function Mark({ kind }) {
+  if (kind === true || kind === "yes") return <span className="symbol-check">{"✓"}</span>;
+  if (kind === "partial" || kind === "~") return <span className="symbol-partial">~</span>;
+  return <span className="symbol-no">{"—"}</span>;
+}
+
+function HBar({ value, max, color, height, label, right, labelWidth }) {
+  if (!color) color = "var(--ink)";
+  if (!height) height = 8;
+  var pct = Math.max(0.5, Math.min(100, (value / max) * 100));
+  return (
+    <div style={{ width: "100%", display: "flex", alignItems: "center", gap: 12 }}>
+      {label !== undefined && <div style={{ minWidth: labelWidth || 130, fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-2)" }}>{label}</div>}
+      <div style={{ flex: 1, height: height, background: "var(--paper-3)", position: "relative" }}>
+        <div style={{ position: "absolute", inset: 0, width: pct + "%", background: color }} />
+      </div>
+      {right !== undefined && <div style={{ minWidth: 90, fontFamily: "var(--mono)", fontSize: 11, color: "var(--ink-2)", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{right}</div>}
+    </div>
+  );
+}
+
+function Knob({ label, min, max, step, value, onChange, format, hint }) {
+  if (!step) step = 1;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+        <span style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-2)", fontWeight: 500 }}>{label}</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: 13, color: "var(--ink)", fontWeight: 500, fontVariantNumeric: "tabular-nums" }}>{format ? format(value) : value}</span>
+      </div>
+      <input type="range" className="slider" min={min} max={max} step={step} value={value} onChange={function(e) { onChange(parseFloat(e.target.value)); }} />
+      {hint && <div style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--ink-4)", letterSpacing: "0.04em", textTransform: "uppercase" }}>{hint}</div>}
+    </div>
+  );
+}
+
+function Quote({ q }) {
+  return (
+    <div className={"vq" + (q.hot ? " hot" : "")}>
+      <div className="vq-text">{"“" + q.q + "”"}</div>
+      <div className="vq-meta">{q.meta}</div>
+    </div>
+  );
+}
+
+var fmtUSD = function(n) { return "$" + Math.round(n).toLocaleString(); };
+
+/* ============================================================
+   Slide 1 — Cover
+   ============================================================ */
+function SlideCover() {
+  return (
+    <div className="slide" style={{ justifyContent: "space-between" }}>
+      <div className="fade-up">
+        <Eyebrow>{"Internal · Executive brief · September launch"}</Eyebrow>
+      </div>
+
+      <div style={{ marginTop: 60 }}>
+        <h1 style={{
+          fontFamily: "var(--serif)", fontWeight: 400, fontSize: 80,
+          lineHeight: 0.98, letterSpacing: "-0.025em", color: "var(--ink)", textWrap: "balance",
+        }}>
+          Marketing <em style={{ fontStyle: "italic", color: "var(--accent)", fontVariationSettings: '"opsz" 60' }}>Automation</em>
+        </h1>
+        <p style={{
+          fontFamily: "var(--serif)", fontSize: 22, lineHeight: 1.4,
+          color: "var(--ink-2)", marginTop: 24, maxWidth: "44ch", fontStyle: "italic",
+        }}>
+          Email, automation flows, CRM and SMS — fully integrated with website design, client permissions, booking, ecommerce and forms. From $8/site on the Business plan.
+        </p>
+
+        <div style={{ marginTop: 48, borderTop: "0.5px solid var(--hairline)", paddingTop: 16 }}>
+          <div className="section-eyebrow" style={{ marginBottom: 14 }}>What this brief establishes</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+            <div style={{ borderLeft: "2px solid var(--accent)", paddingLeft: 16 }}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 8 }}>Demand</div>
+              <div style={{ fontFamily: "var(--serif)", fontSize: 16.5, lineHeight: 1.42, color: "var(--ink-2)" }}>Our own customers already buy this — validated across chats, community and reviews.</div>
+            </div>
+            <div style={{ borderLeft: "2px solid var(--accent)", paddingLeft: 16 }}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 8 }}>Battlefield</div>
+              <div style={{ fontFamily: "var(--serif)", fontSize: 16.5, lineHeight: 1.42, color: "var(--ink-2)" }}>Two fronts: dedicated sub-account platforms (GHL, ActiveCampaign) and builders with add-ons (Wix, Squarespace, Elementor).</div>
+            </div>
+            <div style={{ borderLeft: "2px solid var(--accent)", paddingLeft: 16 }}>
+              <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 8 }}>The wedge</div>
+              <div style={{ fontFamily: "var(--serif)", fontSize: 16.5, lineHeight: 1.42, color: "var(--ink-2)" }}>The only platform where the marketing layer lives inside the site, and scales across every client.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 34, borderTop: "0.5px solid var(--hairline)", paddingTop: 16 }}>
+          <div className="section-eyebrow" style={{ marginBottom: 14 }}>Today, in order</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", fontFamily: "var(--serif)", fontSize: 19, color: "var(--ink-2)", letterSpacing: "-0.01em" }}>
+            <span style={{ color: "var(--ink)" }}>The finding</span>
+            <span style={{ color: "var(--ink-4)" }}>→</span>
+            <span style={{ color: "var(--ink)" }}>Demand &amp; use cases</span>
+            <span style={{ color: "var(--ink-4)" }}>→</span>
+            <span style={{ color: "var(--ink)" }}>Two competitor fronts</span>
+            <span style={{ color: "var(--ink-4)" }}>→</span>
+            <span style={{ color: "var(--ink)" }}>Differentiation &amp; pricing</span>
+            <span style={{ color: "var(--ink-4)" }}>→</span>
+            <span style={{ color: "var(--accent)", fontStyle: "italic" }}>The ask</span>
+          </div>
+          <p style={{ fontFamily: "var(--sans)", fontSize: 12.5, color: "var(--ink-3)", marginTop: 12, maxWidth: "62ch", lineHeight: 1.5 }}>
+            We lead with conclusions. Supporting data sits behind tabs and toggles on every slide — expand only where the room wants to dig in.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 2 — Our customer base (website scrape)
+   ============================================================ */
+function SlideCustomerMA() {
+  var S = D.SCRAPE;
+  var _t = useState("services");
+  var tab = _t[0]; var setTab = _t[1];
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="research"
+        eyebrow="Our customer base"
+        title={<span>A third of our agencies already sell marketing automation — <em>on someone else's platform</em>.</span>}
+        lede={"We scraped and classified " + S.n.toLocaleString() + " marketing-agency and web-design-studio websites from our customer base. 516 of them explicitly offer marketing automation to their own clients. The service ranks fifth overall — behind websites, SEO, paid ads and social — and spans every plan tier and portfolio size."}
+      />
+
+      <div className="tab-bar" style={{ marginTop: 28 }}>
+        <button className={"tab" + (tab === "services" ? " active" : "")} onClick={function() { setTab("services"); }}>Services sold</button>
+        <button className={"tab" + (tab === "who" ? " active" : "")} onClick={function() { setTab("who"); }}>Who sells MA</button>
+        <button className={"tab" + (tab === "what" ? " active" : "")} onClick={function() { setTab("what"); }}>What they sell</button>
+        <button className={"tab" + (tab === "scale" ? " active" : "")} onClick={function() { setTab("scale"); }}>Scale & packaging</button>
+      </div>
+
+      {tab === "services" && (
+        <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 48, marginTop: 28, alignItems: "flex-start" }}>
+          <div>
+            <div className="section-eyebrow" style={{ marginBottom: 14 }}>{"Services identified across " + S.n.toLocaleString() + " provider websites"}</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {S.services.map(function(sv, i) {
+                return <HBar key={i} label={sv.s} labelWidth={220} value={sv.pct} max={100} color={sv.hl ? "var(--accent)" : "var(--ink-3)"} right={sv.pct + "%"} height={sv.hl ? 14 : 10} />;
+              })}
+            </div>
+            <p style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 16, lineHeight: 1.5 }}>
+              Marketing automation / email is the 5th most common service — offered by fewer than a third of providers. The top four (websites, SEO, paid, social) are near-universal.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <div style={{ display: "flex", gap: 24 }}>
+              <div>
+                <BigNum size="mid" color="var(--accent)">32.9<span className="unit">%</span></BigNum>
+                <div style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 6 }}>of providers sell MA</div>
+              </div>
+              <div>
+                <BigNum size="mid">516</BigNum>
+                <div style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 6 }}>providers total</div>
+              </div>
+            </div>
+            <div className="card inset">
+              <div className="section-eyebrow" style={{ marginBottom: 8 }}>Methodology</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 13.5, lineHeight: 1.5, color: "var(--ink-2)" }}>
+                Each site was scraped (homepage + services page) and classified by LLM extraction. Every flag requires textual evidence from the site itself — when in doubt, false. All percentages are floors, not ceilings.
+              </p>
+            </div>
+            <div className="card inset">
+              <div className="section-eyebrow" style={{ marginBottom: 8 }}>Read on the split</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 13.5, lineHeight: 1.5, color: "var(--ink-2)" }}>
+                Of the 516 MA sellers: 447 are marketing agencies, 69 are web design studios. Agencies are 4x more likely to sell it than studios — but studios still represent a real segment.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab === "who" && (
+        <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 48, marginTop: 28, alignItems: "flex-start" }}>
+          <div>
+            <div className="section-eyebrow" style={{ marginBottom: 14 }}>Share that sells MA, by how the agency positions itself</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {S.positioning.map(function(p, i) {
+                return <HBar key={i} label={p.p} labelWidth={210} value={p.pct} max={50} color={i < 2 ? "var(--accent)" : "var(--ink-3)"} right={p.pct + "%"} height={10} />;
+              })}
+            </div>
+            <p style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 16, lineHeight: 1.5 }}>
+              Full-service and lead-gen agencies are roughly 4x more likely to sell MA than website shops. Positioning predicts adoption better than portfolio size.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            <div>
+              <div className="section-eyebrow" style={{ marginBottom: 14 }}>MA adoption by Duda plan</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {S.byPlan.map(function(bp, i) {
+                  return <HBar key={i} label={bp.plan} labelWidth={120} value={bp.pct} max={50} color={i === 0 ? "var(--accent)" : "var(--ink-3)"} right={bp.pct + "%"} height={10} />;
+                })}
+              </div>
+            </div>
+            <div>
+              <div className="section-eyebrow" style={{ marginBottom: 14 }}>MA adoption by Duda region</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {S.byGeo.map(function(g, i) {
+                  return <HBar key={i} label={g.region} labelWidth={120} value={g.pct} max={50} color={i === 0 ? "var(--accent)" : (i === 3 ? "var(--ink-4)" : "var(--ink-3)")} right={g.pct + "%"} height={10} />;
+                })}
+              </div>
+              <p style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 12, lineHeight: 1.5 }}>
+                LATAM over-indexes at 42.4%; EMEA is half the rate at 18.1%. Geo shows a stronger pattern than portfolio size.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab === "what" && (
+        <div className="fade-up" style={{ marginTop: 28 }}>
+          <div className="section-eyebrow" style={{ marginBottom: 6 }}>{"Of the " + S.maTotal + " providers that sell MA (447 agencies + 69 studios), capabilities offered:"}</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 48, marginTop: 12, alignItems: "flex-start" }}>
+            <div>
+              <div style={{ borderTop: "0.5px solid var(--hairline)" }}>
+                {S.capabilities.map(function(cap, i) {
+                  return (
+                    <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 70px 70px", gap: 8, padding: "10px 0", borderBottom: "0.5px solid var(--hairline-2)", alignItems: "center" }}>
+                      <span style={{ fontFamily: "var(--sans)", fontSize: 13, color: "var(--ink)" }}>{cap.c}</span>
+                      <span style={{ fontFamily: "var(--mono)", fontSize: 12, color: "var(--ink-3)", textAlign: "right" }}>{cap.n}</span>
+                      <span style={{ fontFamily: "var(--mono)", fontSize: 12, color: i < 4 ? "var(--accent)" : "var(--ink-2)", textAlign: "right", fontWeight: 500 }}>{cap.pct + "%"}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+              <div className="card inset">
+                <div className="section-eyebrow" style={{ marginBottom: 8 }}>Top 4 = launch scope</div>
+                <p style={{ fontFamily: "var(--serif)", fontSize: 14, lineHeight: 1.5, color: "var(--ink-2)" }}>
+                  The four most common capabilities — email campaigns, drip nurturing, lead capture, CRM — map directly to Duda's launch scope. The demand signal from our own base matches what we're building.
+                </p>
+              </div>
+              <div className="card inset">
+                <div className="section-eyebrow" style={{ marginBottom: 8 }}>SMS = growth opportunity</div>
+                <p style={{ fontFamily: "var(--serif)", fontSize: 14, lineHeight: 1.5, color: "var(--ink-2)" }}>
+                  Only 16.1% offer SMS today — the same 16% that early Duda SMS adopters will serve. Booking + SMS reminders (18.4% offer scheduling) is the native-integration wedge competitors can't match.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab === "scale" && (
+        <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, marginTop: 28, alignItems: "flex-start" }}>
+          <div>
+            <div className="section-eyebrow" style={{ marginBottom: 14 }}>MA adoption by number of paid Duda sites</div>
+            <div style={{ borderTop: "0.5px solid var(--hairline)" }}>
+              {S.bySites.map(function(b, i) {
+                return (
+                  <div key={i} style={{ display: "grid", gridTemplateColumns: "80px 1fr 90px 70px", gap: 12, padding: "10px 0", borderBottom: "0.5px solid var(--hairline-2)", alignItems: "center" }}>
+                    <span style={{ fontFamily: "var(--mono)", fontSize: 13, color: "var(--ink)" }}>{b.band}</span>
+                    <div style={{ height: 8, background: "var(--paper-3)", position: "relative" }}>
+                      <div style={{ position: "absolute", inset: 0, width: b.pct + "%", background: "var(--ink-3)" }} />
+                    </div>
+                    <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--ink-3)", textAlign: "right" }}>{b.n + " providers"}</span>
+                    <span style={{ fontFamily: "var(--mono)", fontSize: 12, color: "var(--ink)", fontWeight: 500, textAlign: "right" }}>{b.pct + "%"}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <p style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 14, lineHeight: 1.5 }}>
+              No strong correlation between portfolio size and MA adoption — it stays broadly between 29% and 36% across all bands. Small agencies are as likely to sell MA as large ones.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <div className="card accent">
+              <BigNum size="mid" color="var(--accent)">86.5<span className="unit">%</span></BigNum>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 15, lineHeight: 1.5, color: "var(--ink)", marginTop: 10 }}>
+                of providers with identifiable MA packaging sell it as a recurring monthly model — not setup-only.
+              </p>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 13, lineHeight: 1.5, color: "var(--ink-2)", marginTop: 8 }}>
+                This is the revenue model Duda enables: per-site, per-month, stacking across the client base. Agencies already sell it this way — they just can't do it inside Duda yet.
+              </p>
+            </div>
+            <div className="card inset">
+              <div className="section-eyebrow" style={{ marginBottom: 8 }}>Implication for pricing</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 13.5, lineHeight: 1.5, color: "var(--ink-2)" }}>
+                The $8/site model aligns with how agencies already monetize MA: monthly per client. The freemium layer gives the other two-thirds a zero-friction entry point.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="slide-footer">
+        <span>
+          {"Source: " + S.n.toLocaleString() + " customer websites scraped + classified · LLM extraction (evidence-required) · "}
+          <a href={S.notebook} target="_blank" rel="noopener">chat with the data ↗</a>
+          {" · raw data: CustomerWebsites/analysis/ (csv · json · md)"}
+        </span>
+        <span>Jul 2026 · first-party</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 3 — The finding
+   ============================================================ */
+function SlideFinding() {
+  var J = D.JOURNEYCARE;
+  var _o = useState(false);
+  var deepOpen = _o[0]; var setDeepOpen = _o[1];
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="research"
+        eyebrow="The competitor"
+        title={<span>The ones who sell it run it on <em>GoHighLevel</em> — next to Duda.</span>}
+        lede="Across four first-party corpora, the tool our agencies actually name is GHL — not the classic email platforms. They pair Duda for site quality with GHL for email, SMS, CRM and reviews, glued together with Zapier. Both halves of that stack are unhappy marriages, and demand for a native answer is accelerating."
+      />
+
+      <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 48, marginTop: 38, alignItems: "flex-start" }}>
+        <div>
+          <div className="section-eyebrow" style={{ marginBottom: 14 }}>Who they actually name — Duda FB groups</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {D.FB_TOOLS.map(function(t, i) {
+              return <HBar key={i} label={t.t} labelWidth={230} value={t.n} max={20} color={i === 0 ? "var(--accent)" : "var(--ink-3)"} right={t.n + (t.note ? " · " + t.note : "")} height={10} />;
+            })}
+          </div>
+          <p style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 14, lineHeight: 1.5, maxWidth: "58ch" }}>
+            The classic ESP incumbents are absent from every channel we own: zero FB mentions, near-zero chat sessions, zero G2 mentions. In our segment, the marketing-automation competitor is GHL — and the builders bundling it in.
+          </p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          <Quote q={{ q: "We’re back dooring Duda into GHL for email and sms nurture… a lot of these all-inclusive tools don’t really do everything well.", meta: "Duda FB Pros · Chris Di Giovanni · 2025", hot: true }} />
+          <Quote q={{ q: "I have a white label with Go High Level. There is a website builder in there. Sell me on why I want yours.", meta: "duda.co chat · Integrity Agency · Mar 2026 · high intent · 3 sessions, demo booked", hot: true }} />
+          <Quote q={{ q: "I started flipping all my sites to HighLevel… One price, unlimited sites. Honestly a no brainer.", meta: "Duda Support FB · May 2024 price-hike thread — churn runs both ways", hot: false }} />
+        </div>
+      </div>
+
+      {/* Deep dive: the stack, productized */}
+      <div className={"card" + (deepOpen ? " accent" : "")} style={{ marginTop: 30, cursor: "pointer" }} onClick={function() { setDeepOpen(!deepOpen); }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 16 }}>
+          <div>
+            <span className="section-eyebrow" style={{ color: "var(--accent)" }}>Deep dive · customer interview</span>
+            <span style={{ fontFamily: "var(--serif)", fontSize: 18, color: "var(--ink)", marginLeft: 14 }}>
+              {J.name} — the Duda + GHL stack, already productized by a customer
+            </span>
+          </div>
+          <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--ink-4)" }}>{deepOpen ? "—" : "+"}</span>
+        </div>
+        {deepOpen && (
+          <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24, marginTop: 18 }} onClick={function(e) { e.stopPropagation(); }}>
+            <div>
+              <div className="section-eyebrow" style={{ marginBottom: 8 }}>What it is</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 13.5, lineHeight: 1.55, color: "var(--ink-2)" }}>{J.what}</p>
+            </div>
+            <div>
+              <div className="section-eyebrow" style={{ marginBottom: 8 }}>How the stack is wired</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 13.5, lineHeight: 1.55, color: "var(--ink-2)" }}>{J.how}</p>
+            </div>
+            <div>
+              <div className="section-eyebrow" style={{ marginBottom: 8 }}>Where it hurts — our opening</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 13.5, lineHeight: 1.55, color: "var(--ink-2)" }}>{J.pain}</p>
+              <div style={{ marginTop: 12, fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.05em", textTransform: "uppercase", display: "flex", gap: 14, flexWrap: "wrap" }}>
+                <a className="src-link" href={J.url} target="_blank" rel="noopener">journeycare.app ↗</a>
+                <a className="src-link" href={J.notes} target="_blank" rel="noopener">call notes ↗</a>
+                <a className="src-link" href={J.recording} target="_blank" rel="noopener">recording ↗</a>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="slide-footer">
+        <span>
+          {"Sources — chat with the data: "}
+          {D.SOURCES.map(function(s, i) {
+            return (
+              <span key={i}>
+                {i > 0 && " · "}
+                <a href={s.link} target="_blank" rel="noopener">{s.n + " " + s.label}</a>
+              </span>
+            );
+          })}
+        </span>
+        <span>Mined Jul 2026 · first-party</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 3 — Demand detail (tabs per corpus)
+   ============================================================ */
+function SlideDemand() {
+  var _a = useState("chats");
+  var tab = _a[0]; var setTab = _a[1];
+  var maxTopic = 20;
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="research"
+        eyebrow="Demand"
+        title={<span>Demand is documented in <em>their words</em> — and it accelerated through spring 2026.</span>}
+      />
+
+      <div className="tab-bar" style={{ marginTop: 30 }}>
+        <button className={"tab" + (tab === "chats" ? " active" : "")} onClick={function() { setTab("chats"); }}>Website chats</button>
+        <button className={"tab" + (tab === "fb" ? " active" : "")} onClick={function() { setTab("fb"); }}>Facebook groups</button>
+        <button className={"tab" + (tab === "g2" ? " active" : "")} onClick={function() { setTab("g2"); }}>G2 reviews of Duda</button>
+        <button className={"tab" + (tab === "ideas" ? " active" : "")} onClick={function() { setTab("ideas"); }}>Idea board</button>
+      </div>
+
+      {tab === "chats" && (
+        <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 48, marginTop: 30, alignItems: "flex-start" }}>
+          <div>
+            <div className="section-eyebrow" style={{ marginBottom: 14 }}>Non-internal sessions asking for each capability (of 3,753)</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {D.CHAT_TOPICS.map(function(t, i) {
+                return <HBar key={i} label={t.t} labelWidth={210} value={t.n} max={maxTopic} color={"var(--ink-2)"} right={"~" + t.n} height={10} />;
+              })}
+            </div>
+            <div className="section-eyebrow" style={{ margin: "26px 0 14px" }}>High-intent GHL sessions by month</div>
+            <div style={{ display: "flex", alignItems: "flex-end", gap: 10, height: 90 }}>
+              {D.GHL_TREND.map(function(p, i) {
+                return (
+                  <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+                    <div style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--ink-3)" }}>{p.v}</div>
+                    <div style={{ width: "100%", height: Math.max(4, p.v / 6 * 60), background: p.v >= 6 ? "var(--accent)" : "var(--ink-3)" }} />
+                    <div style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--ink-4)" }}>{p.m}</div>
+                  </div>
+                );
+              })}
+            </div>
+            <p style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 12, lineHeight: 1.5 }}>
+              March 2026 is the peak in absolute and per-session terms. One prospect chased a date: “I just want to know when the NEW marketing features will be available?” — expectation already exists.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <Quote q={{ q: "Is there a newsletter module for Duda?", meta: "Mar 2026 · San Jose", hot: false }} />
+            <Quote q={{ q: "Does the Duda Bookings widget support SMS reminders without using a third party app?", meta: "Feb 2026 · Las Vegas — wants it native", hot: true }} />
+            <Quote q={{ q: "I also need the ability to send mass emails about promotions… an email when their appointment is scheduled, a 24hr reminder, and if the appt gets cancelled.", meta: "Mar 2026 · tattoo shop · high intent — the all-in-one SMB ask, verbatim", hot: true }} />
+            <Quote q={{ q: "Are abandoned cart e-mails not released yet?", meta: "Dec 2025 · Manchester NH", hot: false }} />
+            <Quote q={{ q: "What about payments, databases, booking, email automations — can that all be integrated?", meta: "May 2026 · Stockholm", hot: false }} />
+          </div>
+        </div>
+      )}
+
+      {tab === "fb" && (
+        <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, marginTop: 30, alignItems: "flex-start" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <Quote q={{ q: "Anyone know why Duda doesn’t have a built in email marketing feature like other platforms have? Wix incorporates it into its ecosystem, but Duda is just completely void of such a basic feature… It should be a standard widget.", meta: "FB Pros · Shaun Freeman · Aug 2025 · post + follow-up", hot: true }} />
+            <Quote q={{ q: "We use HighLevel for bulk email and text, tracking numbers, tracking forms, review widgets and chat bots.", meta: "FB Pros · JC Varnedore — the parallel stack, itemized", hot: false }} />
+            <Quote q={{ q: "I just finished a $19k Duda build… then I upsold them on GHL and using forms/automations + social planner long term… just selling a website doesn’t really cut it anymore.", meta: "FB Pros · Chris Wastney · Apr 2025 — automation is the agency’s margin", hot: true }} />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <Quote q={{ q: "ALOT of Zapier issues atm across forms and Advanced forms. No end in sight currently.", meta: "FB Pros · Feb 2026 · ~6 agencies in one thread — the glue keeps failing", hot: false }} />
+            <Quote q={{ q: "Zapier does not ‘see’ the form. I opened a ticket and support told me it is an issue I need to fix with Zapier.", meta: "FB Pros · Thomas Sonne · same thread", hot: false }} />
+            <div className="card inset" style={{ marginTop: 4 }}>
+              <div className="section-eyebrow" style={{ marginBottom: 8 }}>Read on the numbers</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 14, lineHeight: 1.5, color: "var(--ink-2)" }}>
+                GHL: 17 mentions across 11 threads — every one organic. Zapier: the form-glue in 14 threads. ActiveCampaign, HubSpot, Klaviyo, Brevo: zero in 4,345 posts and comments.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab === "g2" && (
+        <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, marginTop: 30, alignItems: "flex-start" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <Quote q={{ q: "I really wish we could run email marketing via Duda.", meta: "4★ · Agency · Sep 2023", hot: true }} />
+            <Quote q={{ q: "It would also be amazing if they added a CRM/Email Marketing system… so they could rival some of the bigger brands.", meta: "3.5★ · Agency · Feb 2022", hot: false }} />
+            <Quote q={{ q: "Duda has the absolute worst email collection ‘plug-in’… who wants to pay extra for something so basic? The main reason I’ve looked elsewhere in the past year.", meta: "4★ · User · Mar 2023 — email capture as a named churn driver", hot: true }} />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <Quote q={{ q: "I had to purchase a subscription with vCita in order for my clients to be able to schedule and pay for appointments online.", meta: "5★ · Jun 2021 — the booking gap already costs users money", hot: false }} />
+            <div className="card inset">
+              <div className="section-eyebrow" style={{ marginBottom: 8 }}>Read on the corpus</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 14, lineHeight: 1.5, color: "var(--ink-2)" }}>
+                831 reviews, 4.67★. Reviewers almost never name their email stack — demand appears as 8+ distinct “build it native” asks spanning 2019–2025, and the missing CRM is the single most-named “only thing I’d change” among agency fans. 351 reviews are switchers, dominated by WordPress/Elementor plugin fatigue — the proof that integrated beats bolted-on is why they came to Duda at all.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab === "ideas" && (
+        <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, marginTop: 30, alignItems: "flex-start" }}>
+          <div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <HBar label="Email / Text Messaging Marketing App" labelWidth={260} value={130} max={130} color="var(--accent)" right="130 requests" height={12} />
+              <HBar label="White-Label Email Marketing Built In" labelWidth={260} value={22} max={130} color="var(--ink-3)" right="22 requests" height={12} />
+              <HBar label="White-label Mailchimp" labelWidth={260} value={4} max={130} color="var(--ink-4)" right="4 requests" height={12} />
+            </div>
+            <p style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 16, lineHeight: 1.5 }}>
+              ideas.duda.co — the top request is precisely the launch scope: email + text messaging marketing, white-labeled.
+            </p>
+          </div>
+          <div className="card accent">
+            <div className="section-eyebrow" style={{ color: "var(--accent)", marginBottom: 8 }}>Primary interviews underway</div>
+            <p style={{ fontFamily: "var(--serif)", fontSize: 14.5, lineHeight: 1.55, color: "var(--ink-2)" }}>
+              11 agencies from the FB threads contacted for research calls; 5 responded, calls in progress (Jaime Markle completed). The same names surface as GHL stackers in the community data — a ready-made design-partner shortlist.
+            </p>
+          </div>
+        </div>
+      )}
+
+      <div className="slide-footer">
+        <span>Every quote verbatim · chat quotes are user messages only, internal sessions excluded</span>
+        <span>Tabs: 4 corpora</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 4 — Use cases → launch scope
+   ============================================================ */
+function SlideUseCases() {
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="research"
+        eyebrow="Use cases"
+        title={<span>Six jobs, ranked by evidence. The launch scope covers <em>all six</em>.</span>}
+        lede="Each use case below is validated in at least two independent corpora. The scope — email, flows, CRM, SMS, wired into forms, booking and ecommerce — maps one-to-one."
+      />
+      <div style={{ marginTop: 26 }}>
+        {D.USE_CASES.map(function(u, i) {
+          return (
+            <Disclosure key={i} num={u.rank} title={u.name} defaultOpen={i === 0}>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
+                {u.scope.split(" + ").map(function(s, j) {
+                  return <span key={j} style={{ fontFamily: "var(--mono)", fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--accent)", border: "0.5px solid color-mix(in srgb, var(--accent) 35%, transparent)", padding: "3px 9px", borderRadius: 999 }}>{s}</span>;
+                })}
+              </div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 15, lineHeight: 1.55, color: "var(--ink-2)", marginBottom: 14 }}>{u.ev}</p>
+              <Quote q={{ q: u.quote.q, meta: u.quote.meta, hot: true }} />
+            </Disclosure>
+          );
+        })}
+      </div>
+      <div className="slide-footer">
+        <span>Ranked by cross-corpus frequency × buyer intent</span>
+        <span>Scope tags = launch feature set</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 5 — Front one: dedicated platforms
+   ============================================================ */
+function SlideDedicated() {
+  var _a = useState("ghl");
+  var active = _a[0]; var setActive = _a[1];
+  var c = D.MA_PLATFORMS.find(function(x) { return x.id === active; });
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="research"
+        eyebrow="Front one · Dedicated platforms with sub-accounts"
+        title={<span>GHL won the agency <em>model</em> — and keeps failing the agencies in it.</span>}
+      />
+
+      <div className="tab-bar" style={{ marginTop: 28 }}>
+        {D.MA_PLATFORMS.map(function(p) {
+          return <button key={p.id} className={"tab" + (active === p.id ? " active" : "")} onClick={function() { setActive(p.id); }}>{p.name}</button>;
+        })}
+        <button className={"tab" + (active === "rest" ? " active" : "")} onClick={function() { setActive("rest"); }}>The classic ESPs</button>
+      </div>
+
+      {active !== "rest" && c && (
+        <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 48, marginTop: 28, alignItems: "flex-start" }}>
+          <div>
+            <p style={{ fontFamily: "var(--serif)", fontSize: 16, lineHeight: 1.55, color: "var(--ink-2)" }}>{c.posture}</p>
+            <div className="section-eyebrow" style={{ margin: "24px 0 10px" }}>{"Pricing · " + c.model}</div>
+            <div style={{ borderTop: "0.5px solid var(--hairline)" }}>
+              {c.tiers.map(function(t, i) {
+                return (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", gap: 16, padding: "11px 0", borderBottom: "0.5px solid var(--hairline-2)", alignItems: "baseline" }}>
+                    <span style={{ fontFamily: "var(--sans)", fontSize: 13.5, fontWeight: 500, color: "var(--ink)" }}>{t.name}</span>
+                    <span style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", flex: 1 }}>{t.detail}</span>
+                    <span style={{ fontFamily: "var(--mono)", fontSize: 13, color: "var(--ink)", fontVariantNumeric: "tabular-nums" }}>{t.price}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{ marginTop: 14, padding: "10px 12px", background: "var(--paper-2)", borderLeft: "2px solid " + c.color }}>
+              <span style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.08em", textTransform: "uppercase", color: c.color }}>{"Hidden costs · "}</span>
+              <span style={{ fontFamily: "var(--serif)", fontSize: 12.5, color: "var(--ink-2)", lineHeight: 1.5 }}>{c.hidden}</span>
+            </div>
+            <div style={{ paddingLeft: 14, borderLeft: "2px solid var(--accent)", marginTop: 18 }}>
+              <div className="section-eyebrow" style={{ color: "var(--accent)", marginBottom: 6 }}>Structural flaw</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 15.5, lineHeight: 1.45, color: "var(--ink)", fontStyle: "italic" }}>{c.flaw}</p>
+            </div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div className="section-eyebrow">Voice of customer</div>
+            {c.quotes.map(function(q, i) { return <Quote key={i} q={q} />; })}
+            {c.third && (
+              <div style={{ border: "0.5px solid var(--hairline)", borderRadius: 4, padding: "14px 16px", marginTop: 4 }}>
+                <div className="section-eyebrow" style={{ marginBottom: 8 }}>
+                  {c.third.label + " · "}
+                  <a className="src-link" href={c.third.link} target="_blank" rel="noopener">open profile ↗</a>
+                </div>
+                <p style={{ fontFamily: "var(--serif)", fontSize: 13.5, lineHeight: 1.55, color: "var(--ink-2)" }}>{c.third.body}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {active === "rest" && (
+        <div className="fade-up" style={{ marginTop: 28 }}>
+          <p style={{ fontFamily: "var(--serif)", fontSize: 16, lineHeight: 1.55, color: "var(--ink-2)", maxWidth: "68ch" }}>
+            HubSpot, Mailchimp and Klaviyo destabilized themselves with pricing moves (HubSpot’s 2024 restructure, Mailchimp’s free-tier cuts, Klaviyo’s active-profile billing) — and all are effectively absent from Duda’s own channels. They matter as the pricing backdrop, not as the fight.
+          </p>
+          <div style={{ borderTop: "0.5px solid var(--hairline)", marginTop: 22 }}>
+            {D.MA_OTHERS.map(function(o, i) {
+              return (
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "140px 210px 1fr", gap: 20, padding: "13px 0", borderBottom: "0.5px solid var(--hairline-2)", alignItems: "baseline" }}>
+                  <span style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 500, color: "var(--ink)" }}>{o.name}</span>
+                  <span style={{ fontFamily: "var(--mono)", fontSize: 12, color: "var(--ink-2)", fontVariantNumeric: "tabular-nums" }}>{o.at5k}</span>
+                  <span style={{ fontFamily: "var(--serif)", fontSize: 13.5, color: "var(--ink-3)" }}>{o.note}</span>
+                </div>
+              );
+            })}
+          </div>
+          <p style={{ fontFamily: "var(--mono)", fontSize: 10.5, color: "var(--ink-4)", marginTop: 14, textTransform: "uppercase", letterSpacing: "0.06em" }}>Prices at 5k contacts/mo · from the competitive research matrix · Jun 2026</p>
+        </div>
+      )}
+
+      <div className="slide-footer">
+        <span>GHL quotes: first-party G2 stealth scrape (verified, per-review links in repo) + FB groups · Brevo: brevo.com pricing + sub-account pages</span>
+        <span>ActiveCampaign live pricing: TBC (interactive slider)</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 6 — Front two: builders with add-ons
+   ============================================================ */
+function SlideBuilders() {
+  var _a = useState("wix");
+  var active = _a[0]; var setActive = _a[1];
+  var c = D.BUILDERS.find(function(x) { return x.id === active; });
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="research"
+        eyebrow="Front two · Website builders with add-ons"
+        title={<span>For one site, Wix already bundles it. All three silo marketing <em>per client site</em>.</span>}
+        lede="What the research shows across the cohort: each builder bolts marketing onto the site plan to a different depth. Wix Studio gives agencies real cross-site management — workspace dashboard, agency CRM, email templates copyable between sites. None has SMS."
+      />
+
+      <div className="tab-bar" style={{ marginTop: 26 }}>
+        {D.BUILDERS.map(function(p) {
+          return <button key={p.id} className={"tab" + (active === p.id ? " active" : "")} onClick={function() { setActive(p.id); }}>{p.name}</button>;
+        })}
+      </div>
+
+      {c && (
+        <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, marginTop: 28, alignItems: "flex-start" }}>
+          <div>
+            <p style={{ fontFamily: "var(--serif)", fontSize: 16, lineHeight: 1.55, color: "var(--ink-2)" }}>{c.posture}</p>
+            <div className="section-eyebrow" style={{ margin: "22px 0 8px" }}>Model</div>
+            <p style={{ fontFamily: "var(--mono)", fontSize: 12.5, color: "var(--ink-2)" }}>{c.model}</p>
+            <div style={{ paddingLeft: 14, borderLeft: "2px solid var(--accent)", marginTop: 20 }}>
+              <div className="section-eyebrow" style={{ color: "var(--accent)", marginBottom: 6 }}>Where it stops</div>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 15, lineHeight: 1.5, color: "var(--ink)" }}>{c.limit}</p>
+            </div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div className="section-eyebrow">Voice of customer</div>
+            {c.quotes.map(function(q, i) { return <Quote key={i} q={q} />; })}
+            {active === "wix" && (
+              <div className="card inset">
+                <div className="section-eyebrow" style={{ marginBottom: 8 }}>Fact-check note</div>
+                <p style={{ fontFamily: "var(--serif)", fontSize: 13.5, lineHeight: 1.5, color: "var(--ink-2)" }}>
+                  We corrected our own earlier claims twice: Wix does have IF/ELSE automation branching, a workspace-level CRM, a cross-site Studio dashboard, and email templates copyable across sites (<a className="src-link" href="https://support.wix.com/en/article/email-marketing-saving-colors-in-your-campaign" target="_blank" rel="noopener">support.wix.com ↗</a>). The verified limit is operational: end-customer contacts, campaigns and automations run per site.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <div className="slide-footer">
+        <span>Sources: vendor docs + G2 verified pulls + Wix Studio fact-check (research-outputs, Jun 2026)</span>
+        <span>SMS absence = finding by absence, not assumption</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 7 — Differentiation matrix
+   ============================================================ */
+function SlideMatrix() {
+  var cols = [
+    { key: "duda", label: "Duda", accent: true },
+    { key: "ghl", label: "GHL" },
+    { key: "ac", label: "ActiveCampaign" },
+    { key: "wix", label: "Wix" },
+    { key: "sqsp", label: "Squarespace" },
+    { key: "ele", label: "Elementor" }
+  ];
+  var _n = useState(null);
+  var note = _n[0]; var setNote = _n[1];
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="rec"
+        eyebrow="Differentiation"
+        title={<span>One canvas per client. One console over <em>all of them</em>.</span>}
+        lede="Dedicated platforms have the marketing engine but not the website. Builders have the website but silo the marketing per site. The launch scope is the only cell-by-cell complete column — because it inherits Duda’s existing multi-client architecture."
+      />
+
+      <div style={{ marginTop: 28 }}>
+        <div>
+          <div style={{ display: "grid", gridTemplateColumns: "260px repeat(6, 1fr)", gap: 0, borderBottom: "0.5px solid var(--hairline)", paddingBottom: 8 }}>
+            <div></div>
+            {cols.map(function(col) {
+              return <div key={col.key} style={{ textAlign: "center", fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: col.accent ? "var(--accent)" : "var(--ink-3)", fontWeight: col.accent ? 600 : 500 }}>{col.label}</div>;
+            })}
+          </div>
+          {D.MATRIX.map(function(row, i) {
+            var hasNote = row.ghlN || row.acN || row.wixN || row.sqspN || row.eleN;
+            return (
+              <div key={i}>
+                <div
+                  onClick={function() { if (hasNote) setNote(note === i ? null : i); }}
+                  style={{ display: "grid", gridTemplateColumns: "260px repeat(6, 1fr)", gap: 0, padding: "11px 0", borderBottom: "0.5px solid var(--hairline-2)", alignItems: "center", cursor: hasNote ? "pointer" : "default", background: note === i ? "var(--paper-2)" : "transparent" }}>
+                  <div style={{ fontFamily: "var(--sans)", fontSize: 13, color: "var(--ink)", display: "flex", gap: 8, alignItems: "baseline" }}>
+                    {row.name}
+                    {hasNote && <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--ink-4)" }}>{note === i ? "−" : "+"}</span>}
+                  </div>
+                  {cols.map(function(col) {
+                    return <div key={col.key} style={{ textAlign: "center", background: col.accent ? "color-mix(in srgb, var(--accent-soft) 55%, transparent)" : "transparent", padding: "2px 0" }}><Mark kind={row[col.key]} /></div>;
+                  })}
+                </div>
+                {note === i && (
+                  <div className="fade-up" style={{ padding: "10px 0 14px 260px", fontFamily: "var(--serif)", fontSize: 13, color: "var(--ink-2)", borderBottom: "0.5px solid var(--hairline-2)" }}>
+                    {[row.ghlN && ("GHL: " + row.ghlN), row.acN && ("ActiveCampaign: " + row.acN), row.wixN && ("Wix: " + row.wixN), row.sqspN && ("Squarespace: " + row.sqspN), row.eleN && ("Elementor: " + row.eleN)].filter(Boolean).join(" · ")}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <p style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 16, lineHeight: 1.5, maxWidth: "70ch" }}>
+        The Duda column is the launch commitment, not shipped product — every ✓ is scoped for release: email, flows, CRM, SMS, wired into forms, booking, ecommerce and client permissions. Rows with + expand caveats.
+      </p>
+
+      <div className="slide-footer">
+        <span>Competitor cells from verified research (G2 first-party pulls, vendor docs, fact-checks)</span>
+        <span>Duda column = day-one scope</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 8 — Pricing (interactive)
+   ============================================================ */
+function SlidePricing() {
+  var _s = useState(15);
+  var sites = _s[0]; var setSites = _s[1];
+  var _l = useState(0); // 0 = ~1k contacts/client, 1 = ~5k
+  var listIx = _l[0]; var setListIx = _l[1];
+
+  var rows = D.PRICING.vendors.map(function(v) {
+    var cost = v.type === "flat" ? v.flat : v.perSite[listIx] * sites;
+    return { v: v, cost: cost };
+  });
+  var maxCost = Math.max.apply(null, rows.map(function(r) { return r.cost; }));
+  var breakeven = Math.ceil(297 / D.PRICING.dudaPerSite);
+
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="rec"
+        eyebrow="Pricing"
+        title={<span>From <em>$8 per site</em> — priced like a feature, not a second platform.</span>}
+        lede="GHL charges $297/mo before an agency’s first client pays off. Per-contact ESPs multiply with every list. Included in the Business plan at $8/site, the marketing layer scales exactly with the thing agencies already sell: sites."
+      />
+
+      <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: 56, marginTop: 32, alignItems: "flex-start" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
+          <Knob label="Client sites with marketing automation" min={1} max={80} value={sites} onChange={setSites} format={function(v) { return v + " sites"; }} />
+          <div>
+            <div style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-2)", fontWeight: 500, marginBottom: 8 }}>Avg. list size per client</div>
+            <div className="seg">
+              <button className={"seg-btn" + (listIx === 0 ? " active" : "")} onClick={function() { setListIx(0); }}>~1k contacts</button>
+              <button className={"seg-btn" + (listIx === 1 ? " active" : "")} onClick={function() { setListIx(1); }}>~5k contacts</button>
+            </div>
+          </div>
+          <div className="card accent">
+            <div className="section-eyebrow" style={{ color: "var(--accent)", marginBottom: 6 }}>Break-even vs GHL</div>
+            <p style={{ fontFamily: "var(--serif)", fontSize: 14, lineHeight: 1.5, color: "var(--ink-2)" }}>
+              {"Duda stays cheaper than GHL’s flat $297 up to " + (breakeven - 1) + " sites — and at " + breakeven + "+ sites the agency is paying for a complete platform (sites + hosting + marketing), not a marketing tool alone."}
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div className="section-eyebrow" style={{ marginBottom: 14 }}>{"Monthly cost · marketing layer for " + sites + " client sites"}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            {rows.sort(function(a, b) { return a.cost - b.cost; }).map(function(r, i) {
+              var isDuda = r.v.id === "duda";
+              return (
+                <div key={r.v.id}>
+                  <HBar label={r.v.name} labelWidth={150} value={r.cost} max={maxCost} color={isDuda ? "var(--accent)" : "var(--ink-3)"} right={fmtUSD(r.cost) + "/mo"} height={isDuda ? 14 : 10} />
+                  <div style={{ fontFamily: "var(--mono)", fontSize: 9.5, color: "var(--ink-4)", marginLeft: 162, marginTop: 3, textTransform: "uppercase", letterSpacing: "0.04em" }}>{r.v.note}</div>
+                </div>
+              );
+            })}
+          </div>
+          <p style={{ fontFamily: "var(--sans)", fontSize: 12, color: "var(--ink-3)", marginTop: 18, lineHeight: 1.55, maxWidth: "68ch" }}>
+            Honest caveats: Wix email plans are quota-metered per site (Core covers 5,000 emails/mo — roughly one campaign to a 5k list; Advanced assumed for the 5k scenario), so the per-contact attack doesn’t bite them — against builders the message is predictability and the cross-client console. All Wix figures are regular non-promo prices; the $39 Business site plan is additional. Per-site estimates assume one marketing-enabled account per client; ActiveCampaign exact tier pricing is TBC behind their interactive quote slider.
+          </p>
+        </div>
+      </div>
+
+      <div className="slide-footer">
+        <span>Never charge for unsubscribed or dormant contacts — the market’s #1 documented trauma (Mailchimp, Klaviyo, HubSpot)</span>
+        <span>Interactive · drag to explore</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 9 — Risks / the day-one bar
+   ============================================================ */
+function SlideRisks() {
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="rec"
+        eyebrow="Risks & recommendations"
+        title={<span>Three risks, three <em>recommendations</em>.</span>}
+        lede="Each risk is documented in the same corpora that validate demand. Each one has a concrete recommendation to address it."
+      />
+      <div style={{ display: "flex", flexDirection: "column", gap: 20, marginTop: 32 }}>
+        {D.RISKS.map(function(r, i) {
+          return (
+            <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, border: "0.5px solid var(--hairline)", borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ padding: "22px 24px", borderRight: "0.5px solid var(--hairline)" }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink-4)", marginBottom: 10 }}>{"Risk " + String(i + 1).padStart(2, "0")}</div>
+                <div style={{ fontFamily: "var(--sans)", fontSize: 15, fontWeight: 500, color: "var(--ink)", marginBottom: 8 }}>{r.title}</div>
+                <div style={{ fontFamily: "var(--serif)", fontSize: 13.5, lineHeight: 1.5, color: "var(--ink-2)" }}>{r.body}</div>
+              </div>
+              <div style={{ padding: "22px 24px", background: "var(--paper-2)", borderLeft: "2px solid var(--accent)" }}>
+                <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 10 }}>Recommendation</div>
+                <div style={{ fontFamily: "var(--serif)", fontSize: 14.5, lineHeight: 1.55, color: "var(--ink)" }}>{r.rec}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div style={{ marginTop: 36 }}>
+        <div className="section-eyebrow" style={{ marginBottom: 16 }}>Day-one bar — ship these or the positioning doesn’t hold</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          {[
+            { t: "Complete white-label", d: "Zero vendor branding anywhere client-facing — the exact failure agencies punish GHL for." },
+            { t: "Multi-client from day one", d: "Flows, templates and segments cloneable across client sites; permissions inherited from the existing Duda model." },
+            { t: "No dead-contact pricing", d: "Never charge for unsubscribed or dormant contacts. Say it out loud in the launch messaging." },
+            { t: "Booking + forms wired in", d: "SMS/email reminders inside native booking; every form creates a contact and can trigger a flow — no Zapier." }
+          ].map(function(x, i) {
+            return (
+              <div key={i} className="card">
+                <div style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 500, color: "var(--ink)", marginBottom: 8 }}>{x.t}</div>
+                <div style={{ fontFamily: "var(--serif)", fontSize: 13.5, color: "var(--ink-2)", lineHeight: 1.5 }}>{x.d}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="slide-footer">
+        <span>Risk quotes: Duda FB groups · Jun 2026</span>
+        <span>Requirements corroborated by incumbent research (repo readout)</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Slide 10 — The ask
+   ============================================================ */
+function SlideAsk() {
+  return (
+    <div className="slide">
+      <SlideHeader
+        phase="rec"
+        eyebrow="The ask"
+        title={<span>Three decisions to leave this room with.</span>}
+      />
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginTop: 36 }}>
+        {D.THE_ASK.map(function(a) {
+          return (
+            <div key={a.num} className="rec-card">
+              <div className="card-label">{"Decision " + a.num + " · " + a.owner}</div>
+              <h3>{a.title}</h3>
+              <p>{a.body}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="card accent" style={{ marginTop: 32 }}>
+        <div className="section-eyebrow" style={{ color: "var(--accent)", marginBottom: 8 }}>Outside this brief — but keep it in sight</div>
+        <p style={{ fontFamily: "var(--serif)", fontSize: 15, lineHeight: 1.55, color: "var(--ink-2)", maxWidth: "82ch" }}>
+          Marketing automation will work natively with <em style={{ color: "var(--ink)" }}>Duda Vibe</em>, our AI coding platform — the same contacts, flows and permissions behind vibe-coded sites and apps. That is a structural edge over AI-builder platforms like Lovable: automations run on platform infrastructure, not generated code — so they are reliable, set up in clicks rather than prompts, and don’t burn AI credits on management. On credit-metered platforms, every workflow tweak has a token price; here it’s included.
+        </p>
+      </div>
+
+      <div style={{ marginTop: 28, borderTop: "0.5px solid var(--hairline)", paddingTop: 20 }}>
+        <div className="section-eyebrow" style={{ marginBottom: 12 }}>Confidence & open items</div>
+        <p style={{ fontFamily: "var(--serif)", fontSize: 14.5, lineHeight: 1.6, color: "var(--ink-2)", maxWidth: "78ch" }}>
+          Overall confidence: medium-high on demand (four independent first-party corpora converge), high on GHL profile (first-party verified G2 pulls with per-review links), medium on exact competitor pricing (ActiveCampaign live tiers behind interactive slider — flagged TBC). Open: finalize $8/site packaging detail vs. contact/send allowances, and complete the agency interview program (5 of 11 responded) before locking launch copy.
+        </p>
+      </div>
+
+      <div className="slide-footer">
+        <span>Full data: research-outputs/ in the MarketingAutomationResearch repo · battlecard index.html</span>
+        <span>Produced by Growth / Marketing · Jul 2026</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Deck shell
+   ============================================================ */
+
+var SLIDES = [
+  { id: 1,  title: "Cover",                          short: "Cover",    comp: SlideCover },
+  { id: 2,  title: "Our customer base",              short: "Base",     comp: SlideCustomerMA },
+  { id: 3,  title: "The competitor",                   short: "Competitor", comp: SlideFinding },
+  { id: 4,  title: "Demand in their words",          short: "Demand",   comp: SlideDemand },
+  { id: 5,  title: "Use cases → launch scope",       short: "UseCases", comp: SlideUseCases },
+  { id: 6,  title: "Front one: dedicated platforms", short: "GHL/AC",   comp: SlideDedicated },
+  { id: 7,  title: "Front two: builders + add-ons",  short: "Builders", comp: SlideBuilders },
+  { id: 8,  title: "Differentiation matrix",         short: "Matrix",   comp: SlideMatrix },
+  { id: 9,  title: "Pricing",                        short: "Pricing",  comp: SlidePricing },
+  { id: 10, title: "Risks & recommendations",        short: "Risks",    comp: SlideRisks },
+  { id: 11, title: "The ask",                        short: "Ask",      comp: SlideAsk },
+];
+
+function App() {
+  var _idx = useState(function() {
+    var hash = parseInt(window.location.hash.replace("#", ""), 10);
+    if (!isNaN(hash) && hash >= 1 && hash <= SLIDES.length) return hash - 1;
+    return 0;
+  });
+  var idx = _idx[0]; var setIdx = _idx[1];
+  var _m = useState(false); var menuOpen = _m[0]; var setMenuOpen = _m[1];
+  var touchStartRef = useRef(null);
+
+  var goPrev = useCallback(function() { setIdx(function(i) { return Math.max(0, i - 1); }); }, []);
+  var goNext = useCallback(function() { setIdx(function(i) { return Math.min(SLIDES.length - 1, i + 1); }); }, []);
+
+  window.jumpToSlide = function(i) { setIdx(i); };
+
+  function handleTouchStart(e) {
+    var t = e.touches && e.touches[0];
+    if (!t) return;
+    touchStartRef.current = { x: t.clientX, y: t.clientY, time: Date.now() };
+  }
+  function handleTouchEnd(e) {
+    var start = touchStartRef.current;
+    touchStartRef.current = null;
+    var t = e.changedTouches && e.changedTouches[0];
+    if (!start || !t) return;
+    var dx = t.clientX - start.x;
+    var dy = t.clientY - start.y;
+    var elapsed = Date.now() - start.time;
+    if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.2 || elapsed > 900) return;
+    if (dx < 0) goNext(); else goPrev();
+  }
+
+  useEffect(function() { window.location.hash = String(idx + 1); }, [idx]);
+
+  useEffect(function() {
+    function onKey(e) {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+      if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); goNext(); }
+      else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); goPrev(); }
+      else if (e.key === "Home") { e.preventDefault(); setIdx(0); }
+      else if (e.key === "End") { e.preventDefault(); setIdx(SLIDES.length - 1); }
+      else if (e.key === "Escape") { setMenuOpen(false); }
+    }
+    window.addEventListener("keydown", onKey);
+    return function() { window.removeEventListener("keydown", onKey); };
+  }, [goNext, goPrev]);
+
+  var slide = SLIDES[idx];
+  var SlideComp = slide.comp;
+
+  return (
+    <div className="stage" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+      <div className="chrome-top">
+        <div className="chrome-title">
+          <span className="chrome-mark"></span>
+          <span>{"Duda · Marketing Automation · Launch Brief"}</span>
+        </div>
+        <div className="slide-counter">
+          <button onClick={goPrev} disabled={idx === 0}>Prev</button>
+          <button onClick={function() { setMenuOpen(function(o) { return !o; }); }} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span className="nums">{String(idx + 1).padStart(2, "0")}<span className="total">{"/" + String(SLIDES.length).padStart(2, "0")}</span></span>
+            <span style={{ fontFamily: "var(--sans)", textTransform: "none", letterSpacing: 0, fontSize: 12, color: "var(--ink-2)", fontWeight: 500 }}>{slide.title}</span>
+          </button>
+          <button onClick={goNext} disabled={idx === SLIDES.length - 1}>Next</button>
+        </div>
+      </div>
+
+      <React.Fragment key={idx}>
+        <SlideComp />
+      </React.Fragment>
+
+      <button className="nav-arrow prev" onClick={goPrev} disabled={idx === 0} aria-label="Previous slide">{"‹"}</button>
+      <button className="nav-arrow next" onClick={goNext} disabled={idx === SLIDES.length - 1} aria-label="Next slide">{"›"}</button>
+
+      <div className="chrome-bottom">
+        <div className="dots">
+          {SLIDES.map(function(s, i) {
+            return (
+              <button key={s.id} className={"dot" + (i === idx ? " active" : "")} onClick={function() { setIdx(i); }} title={s.title}>
+                {String(i + 1).padStart(2, "0")}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {menuOpen && (
+        <div onClick={function() { setMenuOpen(false); }} style={{
+          position: "fixed", inset: 0,
+          background: "rgba(20, 22, 27, 0.4)", backdropFilter: "blur(2px)",
+          zIndex: 100, display: "flex", alignItems: "flex-start", justifyContent: "center", paddingTop: 80,
+        }}>
+          <div onClick={function(e) { e.stopPropagation(); }} style={{
+            background: "var(--paper)", border: "0.5px solid var(--hairline)",
+            borderRadius: 4, minWidth: 480, maxWidth: 560, padding: 8,
+            boxShadow: "0 24px 64px rgba(20,22,27,0.18)",
+          }}>
+            <div style={{
+              padding: "10px 14px", fontFamily: "var(--mono)", fontSize: 10,
+              letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink-4)",
+              borderBottom: "0.5px solid var(--hairline-2)", marginBottom: 4,
+            }}>Jump to slide</div>
+            {SLIDES.map(function(s, i) {
+              return (
+                <button key={s.id} onClick={function() { setIdx(i); setMenuOpen(false); }} style={{
+                  display: "flex", width: "100%", gap: 16, padding: "10px 14px",
+                  background: i === idx ? "var(--paper-2)" : "none",
+                  border: "none", borderRadius: 3, cursor: "pointer", textAlign: "left", alignItems: "baseline",
+                }}
+                  onMouseEnter={function(e) { if (i !== idx) e.currentTarget.style.background = "var(--paper-2)"; }}
+                  onMouseLeave={function(e) { if (i !== idx) e.currentTarget.style.background = "none"; }}
+                >
+                  <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: i === idx ? "var(--accent)" : "var(--ink-4)", minWidth: 28, fontVariantNumeric: "tabular-nums" }}>{String(i + 1).padStart(2, "0")}</span>
+                  <span style={{ fontFamily: "var(--serif)", fontSize: 16, color: "var(--ink)", flex: 1 }}>{s.title}</span>
+                  {i === idx && <span style={{ fontFamily: "var(--mono)", fontSize: 10, color: "var(--accent)" }}>CURRENT</span>}
+                </button>
+              );
+            })}
+            <div style={{
+              borderTop: "0.5px solid var(--hairline-2)", marginTop: 4, padding: "10px 14px",
+              display: "flex", gap: 16, alignItems: "center",
+            }}>
+              <span style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink-4)" }}>Downloads</span>
+              <a href="https://drive.google.com/file/d/1QFCp5-eBmnOiqXjYxfROwOq5qycgRyp8/view?usp=sharing" target="_blank" rel="noopener" style={{
+                fontFamily: "var(--sans)", fontSize: 12, color: "var(--accent)", textDecoration: "none",
+                borderBottom: "0.5px solid var(--accent-3)", paddingBottom: 1,
+              }}>Data kit (ZIP)</a>
+              <a href="marketing-automation-launch-deck.html" download style={{
+                fontFamily: "var(--sans)", fontSize: 12, color: "var(--accent)", textDecoration: "none",
+                borderBottom: "0.5px solid var(--accent-3)", paddingBottom: 1,
+              }}>Deck (HTML)</a>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
+</body>
+</html>
