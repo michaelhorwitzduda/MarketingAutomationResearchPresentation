@@ -838,6 +838,12 @@ function SlideCover() {
             We lead with conclusions. Supporting data sits behind tabs and toggles on every slide — expand only where the room wants to dig in.
           </p>
         </div>
+
+        <div style={{ marginTop: 28, display: "flex", gap: 20, alignItems: "center" }}>
+          <span style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink-4)" }}>Downloads</span>
+          <a href="https://drive.google.com/file/d/1QFCp5-eBmnOiqXjYxfROwOq5qycgRyp8/view?usp=sharing" target="_blank" rel="noopener" className="src-link">Data kit (ZIP) ↗</a>
+          <a href="marketing-automation-launch-deck.html" download className="src-link">Deck (HTML) ↓</a>
+        </div>
       </div>
     </div>
   );
@@ -1659,9 +1665,13 @@ function SlideAsk() {
         </p>
       </div>
 
-      <div className="slide-footer">
-        <span>Full data: research-outputs/ in the MarketingAutomationResearch repo · battlecard index.html</span>
+      <div className="slide-footer" style={{ justifyContent: "space-between" }}>
         <span>Produced by Growth / Marketing · Jul 2026</span>
+        <span style={{ display: "flex", gap: 16, alignItems: "center" }}>
+          <span style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink-4)" }}>Downloads</span>
+          <a href="https://drive.google.com/file/d/1QFCp5-eBmnOiqXjYxfROwOq5qycgRyp8/view?usp=sharing" target="_blank" rel="noopener">Data kit (ZIP) ↗</a>
+          <a href="marketing-automation-launch-deck.html" download>Deck (HTML) ↓</a>
+        </span>
       </div>
     </div>
   );
