@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "2babef0f61b644c158bb51ee6b251ab6b221d77f",
-  "research_commit_subject": "Demand slide: refresh G2 quotes (Dec 2023 5-star CRM ask, Apr 2025 build-it-native booking ask) replacing Feb 2022 / Jun 2021",
-  "deck_source_sha256": "9a74b746286694980029c80a8a6c603621bed63206c2bf37128257acf8d1058d",
-  "published_at": "2026-07-19T17:44:27.783Z"
+  "research_commit": "bc130bf9a806bd067792c329807def36c41e84a2",
+  "research_commit_subject": "Restructure: competitor finding to slide 3 (GHL+Duda stackers), deployment scan follows as the wide view; demand reframed as persistent not accelerating",
+  "deck_source_sha256": "bf977b9147789497fc40ec8c8a92647b3e605311a18af6371ea5851a6a71d427",
+  "published_at": "2026-07-19T17:57:58.294Z"
 }
