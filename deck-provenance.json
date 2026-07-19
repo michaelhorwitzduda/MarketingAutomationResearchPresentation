@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "54bddad412ac23e8233d54d9ed9c6b0bdf6cacc3",
-  "research_commit_subject": "Reorder: verticals to slide 3, then GHL finding, then deployment scan",
-  "deck_source_sha256": "6815bdf7da8ca4f5a499da04b576d062e134af99ecfb73074b8737ca30aa3679",
-  "published_at": "2026-07-19T18:13:44.258Z"
+  "research_commit": "cc24d5eda28978b4ab4666fea0999e4426635d5e",
+  "research_commit_subject": "Slide 3: replace unverified Klaviyo claim with measured ecomm-ESP finding (14.4% store vs 4.7% service sites; Klaviyo on only 6 store sites)",
+  "deck_source_sha256": "90e5685dacaaef0b68f6a9a63f7327598f33bff91909933c03788dd6a7f44503",
+  "published_at": "2026-07-19T18:19:14.379Z"
 }
