@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "cc24d5eda28978b4ab4666fea0999e4426635d5e",
-  "research_commit_subject": "Slide 3: replace unverified Klaviyo claim with measured ecomm-ESP finding (14.4% store vs 4.7% service sites; Klaviyo on only 6 store sites)",
-  "deck_source_sha256": "90e5685dacaaef0b68f6a9a63f7327598f33bff91909933c03788dd6a7f44503",
-  "published_at": "2026-07-19T18:19:14.379Z"
+  "research_commit": "1a54dbee2a26e4ffd42a467d0e101945e32b107e",
+  "research_commit_subject": "Slide 5: site-type filter (All/Service/Store) on deployment bars — contrast agency vs self-serve per segment; add runtime render gate to publish pipeline",
+  "deck_source_sha256": "3a1953ef64aa77b3acf09251a7b0a1059a0f70bdcd3059e12f7966b231387bf4",
+  "published_at": "2026-07-19T18:42:14.994Z"
 }
