@@ -1,0 +1,7 @@
+{
+  "research_repo": "michaelhorwitzduda/marketingautomationresearch",
+  "research_commit": "c62b55b4c15a8ee2facaa6c998a626d642d1823c",
+  "research_commit_subject": "Add full research workspace: CustomerWebsites (provider extraction pipeline + master), SMBWebsites (deployment scan: scrapers, signatures, cohort analyses, PLAN/FINDINGS), publish-deck.mjs (presentation-repo publishing with provenance), README repo map",
+  "deck_source_sha256": "542989106e5816ce8b4b9afefa687422aacd22c0acde84a348b5142bf2d29060",
+  "published_at": "2026-07-19T11:50:05.438Z"
+}
