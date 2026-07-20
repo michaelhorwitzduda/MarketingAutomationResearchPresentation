@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "1a54dbee2a26e4ffd42a467d0e101945e32b107e",
-  "research_commit_subject": "Slide 5: site-type filter (All/Service/Store) on deployment bars — contrast agency vs self-serve per segment; add runtime render gate to publish pipeline",
-  "deck_source_sha256": "3a1953ef64aa77b3acf09251a7b0a1059a0f70bdcd3059e12f7966b231387bf4",
-  "published_at": "2026-07-19T18:42:14.994Z"
+  "research_commit": "1c6f4b333649a4dfd1d199a27ca588870bbb5f38",
+  "research_commit_subject": "Slide 5: forms row (3-source Paperform: scan embeds + internal installs + submissions activity), source tags on ESP/GHL vendor lines, footer names all three sources; FINDINGS: form census corrected against internal widget data (~85% of sites have native form; scan 54% was a floor)",
+  "deck_source_sha256": "c99dd0804888f3be038153dee3c487c1f0ce1fb13f2186e0faa7c040b06da658",
+  "published_at": "2026-07-20T11:53:14.848Z"
 }
