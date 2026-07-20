@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "1c6f4b333649a4dfd1d199a27ca588870bbb5f38",
-  "research_commit_subject": "Slide 5: forms row (3-source Paperform: scan embeds + internal installs + submissions activity), source tags on ESP/GHL vendor lines, footer names all three sources; FINDINGS: form census corrected against internal widget data (~85% of sites have native form; scan 54% was a floor)",
-  "deck_source_sha256": "c99dd0804888f3be038153dee3c487c1f0ce1fb13f2186e0faa7c040b06da658",
-  "published_at": "2026-07-20T11:53:14.848Z"
+  "research_commit": "54711664dbf0b28c1c8bdb9a08974776a68c1b9c",
+  "research_commit_subject": "Add Duda native form row + fix Forms (3p) with 66K cross-ref audit",
+  "deck_source_sha256": "d0283af8cd507d33bfefc17d9f266e830531f32be3aba28d1ef3316d0bfc53c9",
+  "published_at": "2026-07-20T13:09:38.301Z"
 }
