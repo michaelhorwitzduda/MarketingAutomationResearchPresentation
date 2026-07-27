@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "54711664dbf0b28c1c8bdb9a08974776a68c1b9c",
-  "research_commit_subject": "Add Duda native form row + fix Forms (3p) with 66K cross-ref audit",
-  "deck_source_sha256": "d0283af8cd507d33bfefc17d9f266e830531f32be3aba28d1ef3316d0bfc53c9",
-  "published_at": "2026-07-20T13:09:38.301Z"
+  "research_commit": "c6378080e6ee8432733fbc320c48c862a4b6d5f2",
+  "research_commit_subject": "Deck: audiences & messaging footer cites Decisions 02-03",
+  "deck_source_sha256": "28d94bd5ad6acd86648d3def5f11f1a7d4aa1686514781a778c1471d75faac53",
+  "published_at": "2026-07-27T10:41:48.671Z"
 }
