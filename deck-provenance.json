@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "2da757aa9a12213fd59f706b61c05eea226acd79",
-  "research_commit_subject": "Provider explorer: an email per provider, and stop calling customers unmatched",
-  "deck_source_sha256": "6d54ccaa050ec4023cd8fc8fde291301b0c4dfa5b0e9455e86215618752b1f47",
-  "published_at": "2026-09-02T17:12:58.696Z"
+  "research_commit": "f0488a2eca14f80d84868a8e0b5c4d70b112e279",
+  "research_commit_subject": "Deck: Reddit community voice on ESP multi-account pain (slides 10, 13)",
+  "deck_source_sha256": "35564cfa4d74427682554fe12852a91a84d8023aa3832999d564e80c58ae7104",
+  "published_at": "2026-09-17T10:52:29.695Z"
 }
