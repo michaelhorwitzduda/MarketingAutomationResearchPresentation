@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "93677b96061e4432b20f637e56a85be632ffee66",
-  "research_commit_subject": "Deck: follow-up gap card leads with the 63.5% stat, 1,311 dropped",
-  "deck_source_sha256": "454ff95a84325f546cf785a92b8d85eb59cc107c32fa3cab136d7bd2fe176ec2",
-  "published_at": "2026-10-06T12:00:15.284Z"
+  "research_commit": "9e61dd9c1e1faedd556ad0f56f23d8deaa5129c4",
+  "research_commit_subject": "Validation: blind recompute + tag audit + 66K cross-check; YoY n fix",
+  "deck_source_sha256": "f65d5eef7386e32f0eaea4f47bb20419ff08d2aad4f2756ae3525423c0fd243a",
+  "published_at": "2026-10-15T07:36:51.654Z"
 }
