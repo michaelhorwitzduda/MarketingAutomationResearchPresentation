@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "1ef97f7c352f8aa852f0b963a9bde401c34c6a57",
-  "research_commit_subject": "Deck: slide 3 subtitle = \"a third of the base, over half the growth\"",
-  "deck_source_sha256": "ef31883b35dd4db6607dfa0427fb1b8fffd233f24f717a3f54eaed1511d7e588",
-  "published_at": "2026-10-15T08:57:05.258Z"
+  "research_commit": "1814ad8ecdc92f7909ebb90617a84df7e6d830ce",
+  "research_commit_subject": "Post-audit: dedupe perf export in pipeline, canonical numbers everywhere",
+  "deck_source_sha256": "a6a9acbab4f89094701d64a8029b917281a3f2160516d0c6c67d927b0cfad5d3",
+  "published_at": "2026-10-15T09:03:01.228Z"
 }
