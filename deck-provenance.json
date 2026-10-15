@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "9e61dd9c1e1faedd556ad0f56f23d8deaa5129c4",
-  "research_commit_subject": "Validation: blind recompute + tag audit + 66K cross-check; YoY n fix",
-  "deck_source_sha256": "f65d5eef7386e32f0eaea4f47bb20419ff08d2aad4f2756ae3525423c0fd243a",
-  "published_at": "2026-10-15T07:36:51.654Z"
+  "research_commit": "1ef97f7c352f8aa852f0b963a9bde401c34c6a57",
+  "research_commit_subject": "Deck: slide 3 subtitle = \"a third of the base, over half the growth\"",
+  "deck_source_sha256": "ef31883b35dd4db6607dfa0427fb1b8fffd233f24f717a3f54eaed1511d7e588",
+  "published_at": "2026-10-15T08:57:05.258Z"
 }
