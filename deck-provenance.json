@@ -1,7 +1,7 @@
 {
   "research_repo": "michaelhorwitzduda/marketingautomationresearch",
-  "research_commit": "1814ad8ecdc92f7909ebb90617a84df7e6d830ce",
-  "research_commit_subject": "Post-audit: dedupe perf export in pipeline, canonical numbers everywhere",
-  "deck_source_sha256": "a6a9acbab4f89094701d64a8029b917281a3f2160516d0c6c67d927b0cfad5d3",
-  "published_at": "2026-10-15T09:03:01.228Z"
+  "research_commit": "19b51f6dc2e9308bcaabec925437abf7a48dc472",
+  "research_commit_subject": "Deck: slide 8 chart gains stack-type rows (outreach vs passive vs bare)",
+  "deck_source_sha256": "454309c627a5eb2ab1b55e5aecd27d28e707bcd534d0facb9ffa41ea30b85e2b",
+  "published_at": "2026-10-20T11:17:50.877Z"
 }
